@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>FlowGuard Dashboard</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                background: #0f1115;
+                color: #e6e6e6;
+                margin: 0;
+                padding: 24px;
+            }
+            h1 {
+                color: #4fd1c5;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 16px;
+            }
+            th,
+            td {
+                padding: 8px;
+                border-bottom: 1px solid #333;
+                text-align: left;
+                font-size: 14px;
+            }
+            .critical {
+                color: #ff5566;
+                font-weight: bold;
+            }
+            .high {
+                color: #ff9955;
+            }
+            .medium {
+                color: #ffdd55;
+            }
+            .low {
+                color: #88cc88;
+            }
+            button {
+                background: #4fd1c5;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-right: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>FlowGuard Live Dashboard</h1>
+        <button onclick="runAnalyze()">Run Analysis</button>
+        <button onclick="loadAll()">Refresh</button>
+
+        <h2>Alerts</h2>
+        <table id="alerts-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Src IP</th>
+                    <th>Dst IP</th>
+                    <th>Severity</th>
+                    <th>Confidence</th>
+                    <th>Reasons</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Recent Flows</h2>
+        <table id="flows-table">
+            <thead>
+                <tr>
+                    <th>Src</th>
+                    <th>Dst</th>
+                    <th>Protocol</th>
+                    <th>Packets</th>
+                    <th>Bytes</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <script>
+            const API = "http://127.0.0.1:8000";
+
+            async function loadAlerts() {
+                const res = await fetch(`${API}/alerts`);
+                const alerts = await res.json();
+                const body = document.querySelector("#alerts-table tbody");
+                body.innerHTML = alerts
+                    .map(
+                        (a) => `
+    <tr>
+      <td>${a.id}</td>
+      <td>${a.src_ip}</td>
+      <td>${a.dst_ip}</td>
+      <td class="${a.severity}">${a.severity}</td>
+      <td>${(a.confidence * 100).toFixed(0)}%</td>
+      <td>${a.reasons.join(", ")}</td>
+    </tr>`,
+                    )
+                    .join("");
+            }
+
+            async function loadFlows() {
+                const res = await fetch(`${API}/flows/recent?limit=30`);
+                const flows = await res.json();
+                const body = document.querySelector("#flows-table tbody");
+                body.innerHTML = flows
+                    .map(
+                        (f) => `
+    <tr>
+      <td>${f.src_ip}:${f.src_port}</td>
+      <td>${f.dst_ip}:${f.dst_port}</td>
+      <td>${f.protocol}</td>
+      <td>${f.packet_count}</td>
+      <td>${f.total_bytes}</td>
+    </tr>`,
+                    )
+                    .join("");
+            }
+
+            async function runAnalyze() {
+                await fetch(`${API}/analyze`, { method: "POST" });
+                loadAll();
+            }
+
+            function loadAll() {
+                loadAlerts();
+                loadFlows();
+            }
+
+            loadAll();
+            setInterval(loadAll, 5000); // auto-refresh every 5s
+        </script>
+    </body>
+</html>
