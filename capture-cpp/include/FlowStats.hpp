@@ -6,7 +6,7 @@ struct FlowStats{
     uint64_t first_ts = 0;
     uint64_t last_ts = 0;
     uint64_t packet_count = 0;
-    uint64_t total_bytes = 0;  
+    uint64_t total_bytes = 0;
 
     uint64_t syn_count = 0;
     uint64_t ack_count = 0;
@@ -29,11 +29,11 @@ struct FlowStats{
         if(pkt.tcp_flags & 0x01) fin_count++; //FIN
         if(pkt.tcp_flags & 0x04) rst_count++; //RST
         }
+    }
 
-        double duration_seconds() const 
+        double duration_seconds() const
         {
             if(last_ts<first_ts) return 0.0;
             return static_cast<double>(last_ts - first_ts) / 1'000'000'000.0;
         }
 };
-    

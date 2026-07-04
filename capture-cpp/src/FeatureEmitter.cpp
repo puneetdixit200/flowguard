@@ -7,5 +7,5 @@ FeatureEmitter::FeatureEmitter(const std::string& output_path) {
 
 void FeatureEmitter::emit(const std::string& json_line) {
     std::lock_guard<std::mutex> lock(mutex_);
-    out_ << json_line << std::endl //flush each line so python can read it live
+    out_ << json_line << std::endl; //flush each line so python can read it live
 }

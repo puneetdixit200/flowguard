@@ -13,4 +13,4 @@ public:
 private:
     std::ofstream out_;
     std::mutex mutex_;
-}
+};

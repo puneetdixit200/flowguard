@@ -42,7 +42,7 @@ public:
         not_full_.notify_all();
     }
 private:
-    std::queue<T> queue_i;
+    std::queue<T> queue_;
     std::mutex mutex_;
     std::condition_variable not_empty_;
     std::condition_variable not_full_;

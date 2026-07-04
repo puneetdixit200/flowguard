@@ -3,6 +3,7 @@
 
 std::string JsonSerializer::toJsonLine(const FlowKey& key, const FlowStats& stats) {
     std::ostringstream out;
+
     out << "{"
         << "\"src_ip\":\"" << key.src_ip << "\","
         << "\"dst_ip\":\"" << key.dst_ip << "\","
@@ -17,5 +18,6 @@ std::string JsonSerializer::toJsonLine(const FlowKey& key, const FlowStats& stat
         << "\"fin_count\":" << stats.fin_count << ","
         << "\"rst_count\":" << stats.rst_count
         << "}";
+
     return out.str();
 }
