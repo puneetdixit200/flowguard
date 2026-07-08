@@ -1,15 +1,16 @@
-"""evaluate all  the trriend models : preciso n ,recll , f1"""
-
-import joblib
 import pandas as pd
-from prepare_cicids_data import FEATURE_COLUMN
+import joblib
+
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
 
+from prepare_cicids_data import FEATURE_COLUMNS
 
 def main():
-    df = pd.read_csv("../data/sample/sample_featues.csv")
-    X = df["Label"]
+    df = pd.read_csv("../data/sample/sample_features.csv")
+
+    X = df[FEATURE_COLUMNS]
     y_raw = df["Label"]
+
     encoder = joblib.load("../app/models/label_encoder.joblib")
     y_true = encoder.transform(y_raw)
 
@@ -18,10 +19,11 @@ def main():
 
     print("=== Random Forest Evaluation ===")
     print(classification_report(y_true, y_pred, target_names=encoder.classes_))
+
     print("Confusion matrix:")
     print(confusion_matrix(y_true, y_pred))
-    print(f"Macro F1: {f1_score(y_true, y_pred, average='macro'):.4f}")
 
+    print(f"Macro F1: {f1_score(y_true, y_pred, average='macro'):.4f}")
 
 if __name__ == "__main__":
     main()

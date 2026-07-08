@@ -7,7 +7,6 @@ Severity bands: 50-70=low, 70-85=medium, 85-95=high, 95+=critical. [file:1]"""
 import os
 from lzma import MODE_FAST
 from multiprocessing.managers import Server
-from winreg import SetValue
 
 import joblib
 import numpy as np
