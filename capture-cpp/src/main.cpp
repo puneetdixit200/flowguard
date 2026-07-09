@@ -51,8 +51,8 @@ void aggregatorThread(BlockingQueue<PacketInfo>& queue, FlowAggregator& aggregat
 }
 
 int main() {
-    const std::string pcap_path = "../data/sample/small_sample.pcap";
-    const std::string output_path = "../data/flows_output.jsonl";
+    const std::string pcap_path = "../../data/sample/small_sample.pcap";
+    const std::string output_path = "../../data/flows_output.jsonl";
 
     BlockingQueue<PacketInfo> queue(1000); // bounded to 1000 packets
     FeatureEmitter emitter(output_path);
