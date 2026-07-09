@@ -1,0 +1,30 @@
+# Orchestrates all three FlowGuard services together.
+# Run with: docker compose up --build
+version: "3.9"
+
+services:
+  capture:
+    build: ./capture-cpp
+    volumes:
+      - ./data:/app/data # shared folder so C++ writes flows_output.jsonl here
+    # Live packet capture needs elevated privileges on real interfaces.
+    # Not required for offline .pcap replay mode.
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+  ml-service:
+    build: ./ml-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - capture
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "8080:80"
+    depends_on:
+      - ml-service
