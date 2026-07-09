@@ -1,14 +1,26 @@
-# Orchestrates all three FlowGuard services together.
-# Run with: docker compose up --build
 version: "3.9"
 
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: flowguard
+      POSTGRES_USER: flowguard_user
+      POSTGRES_PASSWORD: flowguard_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
   capture:
     build: ./capture-cpp
     volumes:
-      - ./data:/app/data # shared folder so C++ writes flows_output.jsonl here
-    # Live packet capture needs elevated privileges on real interfaces.
-    # Not required for offline .pcap replay mode.
+      - ./data:/app/data
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -20,7 +32,11 @@ services:
     volumes:
       - ./data:/app/data
     depends_on:
+      - postgres
+      - redis
       - capture
+    environment:
+      DATABASE_URL: "postgresql://flowguard_user:flowguard_pass@postgres:5432/flowguard?schema=public"
 
   dashboard:
     build: ./dashboard
@@ -28,3 +44,6 @@ services:
       - "8080:80"
     depends_on:
       - ml-service
+
+volumes:
+  pgdata:

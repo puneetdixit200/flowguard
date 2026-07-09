@@ -49,27 +49,25 @@ void aggregatorThread(BlockingQueue<PacketInfo>& queue, FlowAggregator& aggregat
         aggregator.processPacket(pkt);
     }
 }
+int main(int argc, char* argv[]) {
+    std::string pcap_path = (argc > 1) ? argv[1] : "../data/sample/small_sample.pcap";
+    std::string output_path = (argc > 2) ? argv[2] : "../data/flows_output.jsonl";
 
-int main() {
-    const std::string pcap_path = "../../data/sample/small_sample.pcap";
-    const std::string output_path = "../../data/flows_output.jsonl";
+    std::cout << "Reading: " << pcap_path << "\nWriting: " << output_path << "\n";
 
-    BlockingQueue<PacketInfo> queue(1000); // bounded to 1000 packets
+    BlockingQueue<PacketInfo> queue(1000);
     FeatureEmitter emitter(output_path);
     FlowAggregator aggregator(emitter);
 
     std::thread producer(captureThread, pcap_path, std::ref(queue));
 
-    // Consumer runs on the main thread here for simplicity.
     std::thread consumer([&]() {
         PacketInfo pkt;
-        while (queue.pop(pkt)) {
-            aggregator.processPacket(pkt);
-        }
+        while (queue.pop(pkt)) aggregator.processPacket(pkt);
     });
 
     producer.join();
-    queue.shutdown();   // tell consumer no more items are coming
+    queue.shutdown();
     consumer.join();
 
     aggregator.printAllFlows();

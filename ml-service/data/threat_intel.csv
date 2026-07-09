@@ -1,0 +1,5 @@
+ip,category,source
+185.220.101.1,tor_exit,manual-seed
+45.155.205.233,known_scanner,manual-seed
+194.26.29.156,c2_server,manual-seed
+89.248.165.74,known_scanner,manual-seed

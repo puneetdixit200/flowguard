@@ -74,3 +74,35 @@ def model_metrics():
         "autoencoder": {"threshold": detector.ae_threshold},
         "ensemble_rule": "2 of 3 models must agree",
     }
+
+
+@app.post("/analyse/real")
+def analyse_real_attack():
+    '''runs the same ensemble used on synthtic data , but agaist real captured attck traffic '''
+    import json ,os
+    real_path=os.path.join(os.path.dirname(__file__),"..","..""data","real_attck_flows.jsonl")
+    if not os.path.exists(real_path):
+        raise HTTPException(status_code=404, detail="Real attack data not found ")
+
+    flows=[]
+    with open(real_path) as f:
+        for line in f:
+            if line.strip():
+                flows.append(json.loads(line))
+
+    results = []
+    for flow in flows:
+        features = normalize_flow(flow)
+        feature_row = [features.get(col, 0.0) for col in FEATURE_COLUMNS]
+        result = detector.score(feature_row)
+        results.append({"flow": flow, "result": result})
+        if result["is_anomaly"]:
+            create_alert(flow, result)
+
+    detected = sum(1 for r in results if r["result"]["is_anomaly"])
+    return {
+            "total_real_flows": len(flows),
+            "detected_as_anomaly": detected,
+            "detection_rate": round(detected / max(len(flows), 1), 2),
+            "note": "This is real nmap SYN scan traffic, not synthetic data.",
+}

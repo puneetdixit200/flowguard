@@ -1,0 +1,70 @@
+// this defines persistent storage layer
+
+datasource db{
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-py
+}
+
+// one row per completed network flow
+
+model Flow{
+    id Int @id @default(autoincrement())
+    srcIP String
+    dstIP String
+    srcPort Int
+    dstPort Int
+    protocol String
+    packetCount Int
+    totalBytes Int
+    durationSeconds Int
+    synCount Int
+    ackCount Int
+    finCount Int
+    rstCount Int
+    createdAt DateTime @default(now())
+
+    alerts Alert[] //one flow produces one allert
+
+}
+
+model Alert {
+    id Int @id @default(autoincrement())
+    flowId Int?
+    flow Flow? @relation(fields: [flowId], references: [id])
+    srcIP String
+    dstIP String
+    protocol String
+    severity String
+    confidence String
+    votes Int
+    predictedClass String
+
+    //individual model results
+
+    isoForestVerdict String
+
+    rfVerdict String
+    aeReconError Float
+
+    explanation String
+    threatIntelMatch Boolean @default(false)
+
+    threatIntelNote String?
+
+    createdAt DateTime @default(now())
+}
+
+
+// loacal threat intlegence table
+
+model ThreatIntelEntry {
+    id Int @id @default(autoincrement())
+    ip String @unique
+    category String
+    source String
+    addedAt DateTime @default(now())
+}

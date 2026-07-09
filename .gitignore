@@ -8,3 +8,5 @@ capture-cpp/build/
 ml-service/.pytest_cache/
 ml-service/.venv/
 ml-service/**/__pycache__/
+.env
+ml-service/.env
