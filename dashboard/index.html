@@ -2,139 +2,1076 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>FlowGuard Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FlowGuard — Threat Monitor</title>
+
+        <!-- Chart.js for severity/protocol/trend charts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+        <!-- Lucide for icons (renders inline SVGs via data-lucide attributes) -->
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
         <style>
-            body {
-                font-family: sans-serif;
-                background: #0f1115;
-                color: #e6e6e6;
-                margin: 0;
-                padding: 24px;
+            /* ===================== DESIGN TOKENS ===================== */
+            :root {
+                --bg: #0b0d10;
+                --surface: #12151a;
+                --surface-2: #171b21;
+                --surface-offset: #1d222a;
+                --border: rgba(255, 255, 255, 0.08);
+                --text: #e8eaed;
+                --text-muted: #8b929e;
+                --text-faint: #5a616c;
+
+                --accent: #2dd4bf; /* teal — primary actions, healthy state */
+                --accent-dim: #134e4a;
+
+                --ok: #34d399; /* green — service online */
+                --ok-bg: rgba(52, 211, 153, 0.12);
+                --warn: #fbbf24; /* amber — degraded/low */
+                --warn-bg: rgba(251, 191, 36, 0.12);
+                --err: #f87171; /* red — offline/critical */
+                --err-bg: rgba(248, 113, 113, 0.12);
+                --info: #60a5fa; /* blue — medium severity */
+                --info-bg: rgba(96, 165, 250, 0.12);
+
+                --radius-sm: 6px;
+                --radius-md: 10px;
+                --radius-lg: 14px;
+                --space-2: 8px;
+                --space-3: 12px;
+                --space-4: 16px;
+                --space-6: 24px;
+                --space-8: 32px;
             }
-            h1 {
-                color: #4fd1c5;
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    "Segoe UI",
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            /* ===================== LAYOUT ===================== */
+            .app-shell {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            header.topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: var(--space-4) var(--space-6);
+                border-bottom: 1px solid var(--border);
+                background: var(--surface);
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: var(--space-3);
+            }
+            .brand svg {
+                color: var(--accent);
+            }
+            .brand h1 {
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: 0.2px;
+            }
+            .brand span {
+                color: var(--text-muted);
+                font-size: 12px;
+            }
+
+            .topbar-actions {
+                display: flex;
+                align-items: center;
+                gap: var(--space-3);
+            }
+
+            button.btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--surface-2);
+                border: 1px solid var(--border);
+                color: var(--text);
+                padding: 8px 14px;
+                border-radius: var(--radius-sm);
+                font-size: 13px;
+                cursor: pointer;
+                transition:
+                    background 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            button.btn:hover {
+                background: var(--surface-offset);
+                border-color: var(--accent);
+            }
+            button.btn.primary {
+                background: var(--accent);
+                color: #04201d;
+                border-color: var(--accent);
+                font-weight: 600;
+            }
+            button.btn.primary:hover {
+                background: #26bfab;
+            }
+            button.btn svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .live-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--ok);
+                box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+                }
+                70% {
+                    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+                }
+            }
+
+            main {
+                flex: 1;
+                padding: var(--space-6);
+                max-width: 1400px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            /* ===================== SYSTEM STATUS STRIP ===================== */
+            .status-strip {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: var(--space-3);
+                margin-bottom: var(--space-6);
+            }
+
+            .status-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: var(--space-4);
+                display: flex;
+                align-items: center;
+                gap: var(--space-3);
+            }
+
+            .status-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: var(--radius-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .status-icon.ok {
+                background: var(--ok-bg);
+                color: var(--ok);
+            }
+            .status-icon.err {
+                background: var(--err-bg);
+                color: var(--err);
+            }
+            .status-icon.warn {
+                background: var(--warn-bg);
+                color: var(--warn);
+            }
+            .status-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .status-text {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            .status-label {
+                font-size: 12px;
+                color: var(--text-muted);
+            }
+            .status-value {
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .status-value.ok {
+                color: var(--ok);
+            }
+            .status-value.err {
+                color: var(--err);
+            }
+            .status-value.warn {
+                color: var(--warn);
+            }
+
+            /* ===================== KPI GRID ===================== */
+            .kpi-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: var(--space-3);
+                margin-bottom: var(--space-6);
+            }
+            .kpi-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: var(--space-4);
+            }
+            .kpi-label {
+                font-size: 12px;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 6px;
+            }
+            .kpi-label svg {
+                width: 14px;
+                height: 14px;
+            }
+            .kpi-value {
+                font-size: 28px;
+                font-weight: 700;
+                font-variant-numeric: tabular-nums;
+            }
+            .kpi-value.critical {
+                color: var(--err);
+            }
+            .kpi-value.accent {
+                color: var(--accent);
+            }
+
+            /* ===================== PANELS / GRID ===================== */
+            .panel-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: var(--space-4);
+                margin-bottom: var(--space-4);
+            }
+            @media (max-width: 900px) {
+                .panel-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .panel {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: var(--space-4);
+            }
+            .panel-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: var(--space-4);
+            }
+            .panel-title {
+                font-size: 14px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .panel-title svg {
+                width: 16px;
+                height: 16px;
+                color: var(--accent);
+            }
+            .panel-sub {
+                font-size: 12px;
+                color: var(--text-faint);
+            }
+
+            .chart-wrap {
+                position: relative;
+                height: 220px;
+            }
+
+            /* ===================== TABLE ===================== */
+            .table-wrap {
+                overflow-x: auto;
             }
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 16px;
             }
-            th,
-            td {
-                padding: 8px;
-                border-bottom: 1px solid #333;
+            th {
                 text-align: left;
-                font-size: 14px;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+                color: var(--text-faint);
+                padding: 10px 12px;
+                border-bottom: 1px solid var(--border);
             }
-            .critical {
-                color: #ff5566;
-                font-weight: bold;
+            td {
+                padding: 10px 12px;
+                border-bottom: 1px solid var(--border);
+                font-size: 13px;
             }
-            .high {
-                color: #ff9955;
+            tr:hover td {
+                background: var(--surface-2);
             }
-            .medium {
-                color: #ffdd55;
+            td.mono {
+                font-family: "SF Mono", Consolas, monospace;
+                font-size: 12px;
+                color: var(--text-muted);
             }
-            .low {
-                color: #88cc88;
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 3px 10px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
             }
-            button {
-                background: #4fd1c5;
-                border: none;
-                padding: 8px 16px;
-                border-radius: 4px;
-                cursor: pointer;
-                margin-right: 8px;
+            .badge.critical {
+                background: var(--err-bg);
+                color: var(--err);
+            }
+            .badge.high {
+                background: var(--warn-bg);
+                color: var(--warn);
+            }
+            .badge.medium {
+                background: var(--info-bg);
+                color: var(--info);
+            }
+            .badge.low {
+                background: var(--ok-bg);
+                color: var(--ok);
+            }
+            .badge.none {
+                background: var(--surface-offset);
+                color: var(--text-muted);
+            }
+
+            /* ===================== EMPTY STATE ===================== */
+            .empty-state {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: var(--space-8);
+                color: var(--text-muted);
+            }
+            .empty-state svg {
+                width: 40px;
+                height: 40px;
+                color: var(--text-faint);
+                margin-bottom: var(--space-3);
+            }
+            .empty-state p {
+                max-width: 32ch;
+                font-size: 13px;
+            }
+
+            /* ===================== SKELETON LOADER ===================== */
+            @keyframes shimmer {
+                0% {
+                    background-position: -200% 0;
+                }
+                100% {
+                    background-position: 200% 0;
+                }
+            }
+            .skeleton-row td {
+                background: linear-gradient(
+                    90deg,
+                    var(--surface-2) 25%,
+                    var(--surface-offset) 50%,
+                    var(--surface-2) 75%
+                );
+                background-size: 200% 100%;
+                animation: shimmer 1.4s ease-in-out infinite;
+                height: 18px;
+            }
+
+            /* ===================== TOAST (connection errors) ===================== */
+            #toast {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: var(--err-bg);
+                border: 1px solid var(--err);
+                color: var(--err);
+                padding: 12px 16px;
+                border-radius: var(--radius-md);
+                font-size: 13px;
+                display: none;
+                align-items: center;
+                gap: 8px;
+                max-width: 340px;
+                z-index: 50;
+            }
+            #toast.show {
+                display: flex;
+            }
+            #toast svg {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+
+            footer {
+                text-align: center;
+                padding: var(--space-6);
+                color: var(--text-faint);
+                font-size: 12px;
             }
         </style>
     </head>
     <body>
-        <h1>FlowGuard Live Dashboard</h1>
-        <button onclick="runAnalyze()">Run Analysis</button>
-        <button onclick="loadAll()">Refresh</button>
+        <div class="app-shell">
+            <!-- ============ TOP BAR ============ -->
+            <header class="topbar">
+                <div class="brand">
+                    <svg
+                        width="26"
+                        height="26"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"
+                        />
+                        <path
+                            d="M9 12 L11 14 L15 9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <div>
+                        <h1>FlowGuard</h1>
+                        <span>Network Threat Monitor</span>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <span class="live-dot" id="live-dot"></span>
+                    <span
+                        id="last-updated"
+                        style="color: var(--text-muted); font-size: 12px"
+                        >Never updated</span
+                    >
+                    <button class="btn" id="refresh-btn">
+                        <i data-lucide="refresh-cw"></i> Refresh
+                    </button>
+                    <button class="btn primary" id="analyze-btn">
+                        <i data-lucide="scan-search"></i> Run Analysis
+                    </button>
+                </div>
+            </header>
 
-        <h2>Alerts</h2>
-        <table id="alerts-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Src IP</th>
-                    <th>Dst IP</th>
-                    <th>Severity</th>
-                    <th>Confidence</th>
-                    <th>Reasons</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            <main>
+                <!-- ============ PIPELINE STATUS STRIP ============ -->
+                <section class="status-strip" id="status-strip">
+                    <!-- Populated by JS: Capture Service, API, Models, Data Flow -->
+                </section>
 
-        <h2>Recent Flows</h2>
-        <table id="flows-table">
-            <thead>
-                <tr>
-                    <th>Src</th>
-                    <th>Dst</th>
-                    <th>Protocol</th>
-                    <th>Packets</th>
-                    <th>Bytes</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+                <!-- ============ KPI CARDS ============ -->
+                <section class="kpi-grid" id="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">
+                            <i data-lucide="activity"></i> Total Flows
+                        </div>
+                        <div class="kpi-value accent" id="kpi-flows">—</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">
+                            <i data-lucide="bell-ring"></i> Total Alerts
+                        </div>
+                        <div class="kpi-value" id="kpi-alerts">—</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">
+                            <i data-lucide="flame"></i> Critical Alerts
+                        </div>
+                        <div class="kpi-value critical" id="kpi-critical">
+                            —
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">
+                            <i data-lucide="target"></i> Avg Confidence
+                        </div>
+                        <div class="kpi-value" id="kpi-confidence">—</div>
+                    </div>
+                </section>
+
+                <!-- ============ CHARTS ============ -->
+                <section class="panel-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i data-lucide="trending-up"></i> Alerts
+                                Timeline
+                            </div>
+                            <div class="panel-sub">Most recent 20 alerts</div>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="chart-timeline"></canvas>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i data-lucide="pie-chart"></i> Severity
+                                Breakdown
+                            </div>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="chart-severity"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i data-lucide="shield-alert"></i> Live Alerts
+                            </div>
+                            <div class="panel-sub" id="alerts-count-sub">—</div>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Source → Dest</th>
+                                        <th>Protocol</th>
+                                        <th>Severity</th>
+                                        <th>Confidence</th>
+                                        <th>Votes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="alerts-tbody">
+                                    <tr class="skeleton-row">
+                                        <td colspan="6"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i data-lucide="git-branch"></i> Protocol Mix
+                            </div>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="chart-protocol"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel-grid" style="grid-template-columns: 1fr">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i data-lucide="waypoints"></i> Recent Flows
+                            </div>
+                            <div class="panel-sub" id="flows-count-sub">—</div>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Source</th>
+                                        <th>Destination</th>
+                                        <th>Protocol</th>
+                                        <th>Packets</th>
+                                        <th>Bytes</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="flows-tbody">
+                                    <tr class="skeleton-row">
+                                        <td colspan="6"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer>
+                FlowGuard — C++ capture · Python ensemble ML · FastAPI ·
+                Chart.js dashboard
+            </footer>
+        </div>
+
+        <div id="toast">
+            <i data-lucide="wifi-off"></i>
+            <span id="toast-msg">Cannot reach API</span>
+        </div>
 
         <script>
+            /* =========================================================================
+   FLOWGUARD DASHBOARD LOGIC
+   This file is intentionally framework-free (no React/build step) so it
+   runs instantly in any browser — just open index.html or serve it statically.
+   ========================================================================= */
+
             const API = "http://127.0.0.1:8000";
 
-            async function loadAlerts() {
-                const res = await fetch(`${API}/alerts`);
-                const alerts = await res.json();
-                const body = document.querySelector("#alerts-table tbody");
-                body.innerHTML = alerts
+            // Chart.js instances are created once and updated in place afterward —
+            // recreating charts every refresh causes memory leaks and flicker.
+            let timelineChart, severityChart, protocolChart;
+
+            /* ---------- STATUS STRIP: shows exactly what's working / broken ---------- */
+            // Each pipeline stage gets its own check. This directly answers "what's working,
+            // what's not" instead of just showing a single spinner.
+            async function checkSystemStatus() {
+                const stages = [];
+
+                // 1. API reachability
+                let apiOk = false;
+                try {
+                    const res = await fetch(`${API}/health`, {
+                        signal: AbortSignal.timeout(3000),
+                    });
+                    apiOk = res.ok;
+                } catch (e) {
+                    apiOk = false;
+                }
+                stages.push({
+                    label: "FastAPI Service",
+                    icon: "server",
+                    ok: apiOk,
+                    detail: apiOk
+                        ? "Reachable on :8000"
+                        : "Not reachable — start uvicorn",
+                });
+
+                // 2. Capture pipeline — inferred from whether /flows/recent returns any data
+                let flows = [];
+                let captureOk = false;
+                if (apiOk) {
+                    try {
+                        const res = await fetch(`${API}/flows/recent?limit=50`);
+                        flows = await res.json();
+                        captureOk = Array.isArray(flows) && flows.length > 0;
+                    } catch (e) {
+                        captureOk = false;
+                    }
+                }
+                stages.push({
+                    label: "Packet Capture (C++)",
+                    icon: "radio",
+                    ok: captureOk,
+                    detail: captureOk
+                        ? `${flows.length} flows ingested`
+                        : "No flow data — run flowguard_capture",
+                });
+
+                // 3. ML models — inferred from whether /metrics/model responds without error
+                let modelsOk = false;
+                let modelDetail = "Models not loaded";
+                if (apiOk) {
+                    try {
+                        const res = await fetch(`${API}/metrics/model`);
+                        if (res.ok) {
+                            modelsOk = true;
+                            modelDetail = "Ensemble loaded (3 models)";
+                        }
+                    } catch (e) {
+                        modelsOk = false;
+                    }
+                }
+                stages.push({
+                    label: "ML Ensemble",
+                    icon: "brain-circuit",
+                    ok: modelsOk,
+                    detail: modelDetail,
+                });
+
+                // 4. Alert engine — inferred from whether /alerts responds
+                let alerts = [];
+                let alertsOk = false;
+                if (apiOk) {
+                    try {
+                        const res = await fetch(`${API}/alerts`);
+                        alerts = await res.json();
+                        alertsOk = Array.isArray(alerts);
+                    } catch (e) {
+                        alertsOk = false;
+                    }
+                }
+                stages.push({
+                    label: "Alert Engine",
+                    icon: "bell",
+                    ok: alertsOk,
+                    detail: alertsOk
+                        ? `${alerts.length} alerts stored`
+                        : "Not responding",
+                });
+
+                renderStatusStrip(stages);
+                document.getElementById("live-dot").style.background = apiOk
+                    ? "var(--ok)"
+                    : "var(--err)";
+                toggleToast(!apiOk);
+
+                return { flows, alerts, apiOk };
+            }
+
+            function renderStatusStrip(stages) {
+                const strip = document.getElementById("status-strip");
+                strip.innerHTML = stages
+                    .map(
+                        (s) => `
+    <div class="status-card">
+      <div class="status-icon ${s.ok ? "ok" : "err"}">
+        <i data-lucide="${s.ok ? "check-circle-2" : "x-circle"}"></i>
+      </div>
+      <div class="status-text">
+        <span class="status-label">${s.label}</span>
+        <span class="status-value ${s.ok ? "ok" : "err"}">${s.ok ? "Online" : "Offline"} — ${s.detail}</span>
+      </div>
+    </div>
+  `,
+                    )
+                    .join("");
+                lucide.createIcons(); // re-render icons after innerHTML replace
+            }
+
+            function toggleToast(show) {
+                const toast = document.getElementById("toast");
+                toast.classList.toggle("show", show);
+            }
+
+            /* ---------- KPI CARDS ---------- */
+            function renderKPIs(flows, alerts) {
+                document.getElementById("kpi-flows").textContent = flows.length;
+                document.getElementById("kpi-alerts").textContent =
+                    alerts.length;
+
+                const critical = alerts.filter(
+                    (a) => a.severity === "critical",
+                ).length;
+                document.getElementById("kpi-critical").textContent = critical;
+
+                const avgConf = alerts.length
+                    ? (
+                          (alerts.reduce(
+                              (sum, a) => sum + (a.confidence || 0),
+                              0,
+                          ) /
+                              alerts.length) *
+                          100
+                      ).toFixed(0) + "%"
+                    : "0%";
+                document.getElementById("kpi-confidence").textContent = avgConf;
+            }
+
+            /* ---------- CHARTS ---------- */
+            const SEVERITY_COLORS = {
+                critical: "#f87171",
+                high: "#fbbf24",
+                medium: "#60a5fa",
+                low: "#34d399",
+                none: "#5a616c",
+            };
+
+            function renderSeverityChart(alerts) {
+                const counts = { critical: 0, high: 0, medium: 0, low: 0 };
+                alerts.forEach((a) => {
+                    if (counts[a.severity] !== undefined) counts[a.severity]++;
+                });
+
+                const ctx = document.getElementById("chart-severity");
+                const data = {
+                    labels: Object.keys(counts),
+                    datasets: [
+                        {
+                            data: Object.values(counts),
+                            backgroundColor: Object.keys(counts).map(
+                                (k) => SEVERITY_COLORS[k],
+                            ),
+                            borderWidth: 0,
+                        },
+                    ],
+                };
+
+                if (severityChart) {
+                    severityChart.data = data;
+                    severityChart.update();
+                } else {
+                    severityChart = new Chart(ctx, {
+                        type: "doughnut",
+                        data,
+                        options: {
+                            plugins: {
+                                legend: {
+                                    position: "bottom",
+                                    labels: {
+                                        color: "#8b929e",
+                                        boxWidth: 10,
+                                        font: { size: 11 },
+                                    },
+                                },
+                            },
+                            cutout: "65%",
+                        },
+                    });
+                }
+            }
+
+            function renderProtocolChart(flows) {
+                const counts = {};
+                flows.forEach((f) => {
+                    counts[f.protocol] = (counts[f.protocol] || 0) + 1;
+                });
+
+                const ctx = document.getElementById("chart-protocol");
+                const data = {
+                    labels: Object.keys(counts),
+                    datasets: [
+                        {
+                            data: Object.values(counts),
+                            backgroundColor: "#2dd4bf",
+                            borderRadius: 4,
+                        },
+                    ],
+                };
+
+                if (protocolChart) {
+                    protocolChart.data = data;
+                    protocolChart.update();
+                } else {
+                    protocolChart = new Chart(ctx, {
+                        type: "bar",
+                        data,
+                        options: {
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: {
+                                    ticks: { color: "#8b929e" },
+                                    grid: { display: false },
+                                },
+                                y: {
+                                    ticks: { color: "#8b929e" },
+                                    grid: { color: "rgba(255,255,255,0.05)" },
+                                },
+                            },
+                        },
+                    });
+                }
+            }
+
+            function renderTimelineChart(alerts) {
+                // Sort oldest to newest so the line reads left-to-right chronologically.
+                const sorted = [...alerts].reverse();
+                const labels = sorted.map((a) =>
+                    new Date(a.timestamp).toLocaleTimeString(),
+                );
+                const confidences = sorted.map(
+                    (a) => (a.confidence || 0) * 100,
+                );
+
+                const ctx = document.getElementById("chart-timeline");
+                const data = {
+                    labels,
+                    datasets: [
+                        {
+                            label: "Confidence %",
+                            data: confidences,
+                            borderColor: "#2dd4bf",
+                            backgroundColor: "rgba(45,212,191,0.1)",
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 3,
+                        },
+                    ],
+                };
+
+                if (timelineChart) {
+                    timelineChart.data = data;
+                    timelineChart.update();
+                } else {
+                    timelineChart = new Chart(ctx, {
+                        type: "line",
+                        data,
+                        options: {
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: "#8b929e",
+                                        maxTicksLimit: 6,
+                                    },
+                                    grid: { display: false },
+                                },
+                                y: {
+                                    ticks: { color: "#8b929e" },
+                                    grid: { color: "rgba(255,255,255,0.05)" },
+                                    min: 0,
+                                    max: 100,
+                                },
+                            },
+                        },
+                    });
+                }
+            }
+
+            /* ---------- TABLES ---------- */
+            function renderAlertsTable(alerts) {
+                const tbody = document.getElementById("alerts-tbody");
+                document.getElementById("alerts-count-sub").textContent =
+                    `${alerts.length} total`;
+
+                if (alerts.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6">
+      <div class="empty-state">
+        <i data-lucide="shield-check"></i>
+        <p>No alerts yet. Click "Run Analysis" to scan captured flows.</p>
+      </div>
+    </td></tr>`;
+                    lucide.createIcons();
+                    return;
+                }
+
+                tbody.innerHTML = alerts
+                    .slice(0, 20)
                     .map(
                         (a) => `
     <tr>
-      <td>${a.id}</td>
-      <td>${a.src_ip}</td>
-      <td>${a.dst_ip}</td>
-      <td class="${a.severity}">${a.severity}</td>
-      <td>${(a.confidence * 100).toFixed(0)}%</td>
-      <td>${a.reasons.join(", ")}</td>
-    </tr>`,
+      <td class="mono">${new Date(a.timestamp).toLocaleTimeString()}</td>
+      <td class="mono">${a.src_ip} → ${a.dst_ip}</td>
+      <td>${a.protocol || "-"}</td>
+      <td><span class="badge ${a.severity}">${a.severity}</span></td>
+      <td>${((a.confidence || 0) * 100).toFixed(0)}%</td>
+      <td>${a.votes ?? "-"} / 3</td>
+    </tr>
+  `,
                     )
                     .join("");
             }
 
-            async function loadFlows() {
-                const res = await fetch(`${API}/flows/recent?limit=30`);
-                const flows = await res.json();
-                const body = document.querySelector("#flows-table tbody");
-                body.innerHTML = flows
+            function renderFlowsTable(flows) {
+                const tbody = document.getElementById("flows-tbody");
+                document.getElementById("flows-count-sub").textContent =
+                    `${flows.length} total`;
+
+                if (flows.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6">
+      <div class="empty-state">
+        <i data-lucide="inbox"></i>
+        <p>No flows captured yet. Run the C++ capture service to populate this.</p>
+      </div>
+    </td></tr>`;
+                    lucide.createIcons();
+                    return;
+                }
+
+                tbody.innerHTML = flows
+                    .slice(-20)
+                    .reverse()
                     .map(
                         (f) => `
     <tr>
-      <td>${f.src_ip}:${f.src_port}</td>
-      <td>${f.dst_ip}:${f.dst_port}</td>
+      <td class="mono">${f.src_ip}:${f.src_port}</td>
+      <td class="mono">${f.dst_ip}:${f.dst_port}</td>
       <td>${f.protocol}</td>
       <td>${f.packet_count}</td>
-      <td>${f.total_bytes}</td>
-    </tr>`,
+      <td>${f.total_bytes.toLocaleString()}</td>
+      <td>${(f.duration_seconds || 0).toFixed(2)}s</td>
+    </tr>
+  `,
                     )
                     .join("");
             }
 
-            async function runAnalyze() {
-                await fetch(`${API}/analyze`, { method: "POST" });
-                loadAll();
+            /* ---------- MAIN REFRESH LOOP ---------- */
+            async function refreshAll() {
+                document
+                    .getElementById("refresh-btn")
+                    .querySelector("svg").style.animation = "spin 0.6s linear";
+
+                const { flows, alerts, apiOk } = await checkSystemStatus();
+
+                if (apiOk) {
+                    renderKPIs(flows, alerts);
+                    renderSeverityChart(alerts);
+                    renderProtocolChart(flows);
+                    renderTimelineChart(alerts);
+                    renderAlertsTable(alerts);
+                    renderFlowsTable(flows);
+                }
+
+                document.getElementById("last-updated").textContent =
+                    "Updated " + new Date().toLocaleTimeString();
+
+                lucide.createIcons();
             }
 
-            function loadAll() {
-                loadAlerts();
-                loadFlows();
+            async function runAnalysis() {
+                const btn = document.getElementById("analyze-btn");
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader-2"></i> Analyzing...`;
+                lucide.createIcons();
+
+                try {
+                    await fetch(`${API}/analyze`, { method: "POST" });
+                } catch (e) {
+                    console.error("Analyze failed", e);
+                }
+
+                await refreshAll();
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="scan-search"></i> Run Analysis`;
+                lucide.createIcons();
             }
 
-            loadAll();
-            setInterval(loadAll, 5000); // auto-refresh every 5s
+            document
+                .getElementById("refresh-btn")
+                .addEventListener("click", refreshAll);
+            document
+                .getElementById("analyze-btn")
+                .addEventListener("click", runAnalysis);
+
+            // Initial load + auto-refresh every 5 seconds so the dashboard feels "live".
+            lucide.createIcons();
+            refreshAll();
+            setInterval(refreshAll, 5000);
         </script>
     </body>
 </html>
