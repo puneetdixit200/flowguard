@@ -1,73 +1,71 @@
-"""combine isloation forest , reandom forst and autoencdoer votes"""
-
-"""
-Rule per dossier: if 2 of 3 models flag anomaly -> alert = true.
-Severity bands: 50-70=low, 70-85=medium, 85-95=high, 95+=critical. [file:1]"""
-
 import os
-from lzma import MODE_FAST
-from multiprocessing.managers import Server
-
 import joblib
-import numpy as np
 import torch
+import numpy as np
+
 from app.ml.autoencoder_def import Autoencoder
-from numpy._core.multiarray import _reconstruct
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models")
 
 
 class EnsembleDetector:
     def __init__(self):
-        # load evething once at startup
-        self.scalar = joblib.load(os.path.join(MODEL_DIR, "autoencoder_meta.joblib"))
-        self.iso_forest = joblib.load(os.path.join(MODEL_DIR, "iso_forest.joblib"))
-        self.rf_forest = joblib.load(os.path.join(MODEL_DIR, "rf_forest.joblib"))
+        self.scaler = joblib.load(os.path.join(MODEL_DIR, "scaler.joblib"))
+
+        self.iso_forest = joblib.load(
+            os.path.join(MODEL_DIR, "isolation_forest.joblib")
+        )
+
+        self.rf_model = joblib.load(
+            os.path.join(MODEL_DIR, "random_forest.joblib")
+        )
+
         self.label_encoder = joblib.load(
             os.path.join(MODEL_DIR, "label_encoder.joblib")
         )
 
-        ae_meta = joblib.load(os.path.join(MODEL_DIR, "autoencoder_meta.joblib"))
-        self.ae_thresshold = ae_meta["threshold"]
-        self.autoencoder = Autoencoder(ae_meta["imput_dim"])
-        self.autoencoder.load_state_dict(
-            torch.load(os.path.join(MODEL_DIR, "autoencoder.pt"))
+        ae_meta = joblib.load(
+            os.path.join(MODEL_DIR, "autoencoder_meta.joblib")
         )
+
+        self.ae_threshold = ae_meta["threshold"]
+
+        self.autoencoder = Autoencoder(ae_meta["input_dim"])
+
+        state_dict = torch.load(
+            os.path.join(MODEL_DIR, "autoencoder.pt"),
+            map_location="cpu"
+        )
+
+        self.autoencoder.load_state_dict(state_dict)
         self.autoencoder.eval()
 
     def score(self, feature_row: list[float]) -> dict:
-        """
-        feature_row must be in the exact same order as FEATURE_COLUMNS
-        used during training — order mismatches silently break predictions.
-        """
-        X = np.array(feature_row).reshape(1, -1)
-        X_scaled = self.scalar.transform(X)
+        X = np.array(feature_row, dtype=float).reshape(1, -1)
+        X_scaled = self.scaler.transform(X)
+
         votes = 0
         details = {}
-        # vote 1 by islation forest
 
         iso_pred = self.iso_forest.predict(X_scaled)[0]
         iso_anomaly = iso_pred == -1
         votes += int(iso_anomaly)
-        details["iso_forest"] = "anomaly" if iso_anomaly else "normal"
-
-        # vote 2 by random forest
+        details["isolation_forest"] = "anomaly" if iso_anomaly else "normal"
 
         rf_pred_idx = self.rf_model.predict(X)[0]
         rf_label = self.label_encoder.inverse_transform([rf_pred_idx])[0]
-        rf_anomaly = rf_label.upper() == "BENIGN"
+        rf_anomaly = rf_label.upper() != "BENIGN"
         votes += int(rf_anomaly)
-        details["rf_forest"] = rf_label
-
-        # vote 3 by autoencoder
+        details["random_forest"] = rf_label
 
         with torch.no_grad():
             X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
             reconstructed = self.autoencoder(X_tensor)
             error = torch.mean((reconstructed - X_tensor) ** 2).item()
-        ae_anomaly = error > self.ae_thresshold
+
+        ae_anomaly = error > self.ae_threshold
         votes += int(ae_anomaly)
-        details["autoencoder"] = round(error, 6)
+        details["autoencoder_error"] = round(error, 6)
 
         is_anomaly = votes >= 2
         confidence = votes / 3.0

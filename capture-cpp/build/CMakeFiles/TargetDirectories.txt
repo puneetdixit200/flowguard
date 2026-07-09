@@ -1,3 +1,7 @@
 /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/flowguard_capture.dir
+/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/test_flow_key.dir
+/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/test_flow_aggregator.dir
+/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/test_blocking_queue.dir
+/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/test.dir
 /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/edit_cache.dir
 /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles/rebuild_cache.dir

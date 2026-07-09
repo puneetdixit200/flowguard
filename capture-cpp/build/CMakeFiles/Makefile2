@@ -64,10 +64,16 @@ CMAKE_BINARY_DIR = /home/pd/Downloads/flowguard/capture-cpp/build
 
 # The main recursive "all" target.
 all: CMakeFiles/flowguard_capture.dir/all
+all: CMakeFiles/test_flow_key.dir/all
+all: CMakeFiles/test_flow_aggregator.dir/all
+all: CMakeFiles/test_blocking_queue.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/flowguard_capture.dir/codegen
+codegen: CMakeFiles/test_flow_key.dir/codegen
+codegen: CMakeFiles/test_flow_aggregator.dir/codegen
+codegen: CMakeFiles/test_blocking_queue.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -76,6 +82,9 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/flowguard_capture.dir/clean
+clean: CMakeFiles/test_flow_key.dir/clean
+clean: CMakeFiles/test_flow_aggregator.dir/clean
+clean: CMakeFiles/test_blocking_queue.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -109,6 +118,102 @@ CMakeFiles/flowguard_capture.dir/codegen:
 CMakeFiles/flowguard_capture.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/clean
 .PHONY : CMakeFiles/flowguard_capture.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_flow_key.dir
+
+# All Build rule for target.
+CMakeFiles/test_flow_key.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=14,15 "Built target test_flow_key"
+.PHONY : CMakeFiles/test_flow_key.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_flow_key.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_flow_key.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_flow_key.dir/rule
+
+# Convenience name for target.
+test_flow_key: CMakeFiles/test_flow_key.dir/rule
+.PHONY : test_flow_key
+
+# codegen rule for target.
+CMakeFiles/test_flow_key.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=14,15 "Finished codegen for target test_flow_key"
+.PHONY : CMakeFiles/test_flow_key.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_flow_key.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/clean
+.PHONY : CMakeFiles/test_flow_key.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_flow_aggregator.dir
+
+# All Build rule for target.
+CMakeFiles/test_flow_aggregator.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=9,10,11,12,13 "Built target test_flow_aggregator"
+.PHONY : CMakeFiles/test_flow_aggregator.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_flow_aggregator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_flow_aggregator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_flow_aggregator.dir/rule
+
+# Convenience name for target.
+test_flow_aggregator: CMakeFiles/test_flow_aggregator.dir/rule
+.PHONY : test_flow_aggregator
+
+# codegen rule for target.
+CMakeFiles/test_flow_aggregator.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=9,10,11,12,13 "Finished codegen for target test_flow_aggregator"
+.PHONY : CMakeFiles/test_flow_aggregator.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_flow_aggregator.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/clean
+.PHONY : CMakeFiles/test_flow_aggregator.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_blocking_queue.dir
+
+# All Build rule for target.
+CMakeFiles/test_blocking_queue.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=7,8 "Built target test_blocking_queue"
+.PHONY : CMakeFiles/test_blocking_queue.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_blocking_queue.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_blocking_queue.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_blocking_queue.dir/rule
+
+# Convenience name for target.
+test_blocking_queue: CMakeFiles/test_blocking_queue.dir/rule
+.PHONY : test_blocking_queue
+
+# codegen rule for target.
+CMakeFiles/test_blocking_queue.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/pd/Downloads/flowguard/capture-cpp/build/CMakeFiles --progress-num=7,8 "Finished codegen for target test_blocking_queue"
+.PHONY : CMakeFiles/test_blocking_queue.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test_blocking_queue.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/clean
+.PHONY : CMakeFiles/test_blocking_queue.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/pd/Downloads/flowguard/capture-cpp/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -129,12 +139,52 @@ flowguard_capture/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/build
 .PHONY : flowguard_capture/fast
 
+#=============================================================================
+# Target rules for targets named test_flow_key
+
+# Build rule for target.
+test_flow_key: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_flow_key
+.PHONY : test_flow_key
+
+# fast build rule for target.
+test_flow_key/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/build
+.PHONY : test_flow_key/fast
+
+#=============================================================================
+# Target rules for targets named test_flow_aggregator
+
+# Build rule for target.
+test_flow_aggregator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_flow_aggregator
+.PHONY : test_flow_aggregator
+
+# fast build rule for target.
+test_flow_aggregator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/build
+.PHONY : test_flow_aggregator/fast
+
+#=============================================================================
+# Target rules for targets named test_blocking_queue
+
+# Build rule for target.
+test_blocking_queue: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_blocking_queue
+.PHONY : test_blocking_queue
+
+# fast build rule for target.
+test_blocking_queue/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/build
+.PHONY : test_blocking_queue/fast
+
 src/FeatureEmitter.o: src/FeatureEmitter.cpp.o
 .PHONY : src/FeatureEmitter.o
 
 # target to build an object file
 src/FeatureEmitter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.o
 .PHONY : src/FeatureEmitter.cpp.o
 
 src/FeatureEmitter.i: src/FeatureEmitter.cpp.i
@@ -143,6 +193,7 @@ src/FeatureEmitter.i: src/FeatureEmitter.cpp.i
 # target to preprocess a source file
 src/FeatureEmitter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.i
 .PHONY : src/FeatureEmitter.cpp.i
 
 src/FeatureEmitter.s: src/FeatureEmitter.cpp.s
@@ -151,6 +202,7 @@ src/FeatureEmitter.s: src/FeatureEmitter.cpp.s
 # target to generate assembly for a file
 src/FeatureEmitter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.s
 .PHONY : src/FeatureEmitter.cpp.s
 
 src/FlowAggregator.o: src/FlowAggregator.cpp.o
@@ -159,6 +211,7 @@ src/FlowAggregator.o: src/FlowAggregator.cpp.o
 # target to build an object file
 src/FlowAggregator.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.o
 .PHONY : src/FlowAggregator.cpp.o
 
 src/FlowAggregator.i: src/FlowAggregator.cpp.i
@@ -167,6 +220,7 @@ src/FlowAggregator.i: src/FlowAggregator.cpp.i
 # target to preprocess a source file
 src/FlowAggregator.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.i
 .PHONY : src/FlowAggregator.cpp.i
 
 src/FlowAggregator.s: src/FlowAggregator.cpp.s
@@ -175,6 +229,7 @@ src/FlowAggregator.s: src/FlowAggregator.cpp.s
 # target to generate assembly for a file
 src/FlowAggregator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.s
 .PHONY : src/FlowAggregator.cpp.s
 
 src/JsonSerializer.o: src/JsonSerializer.cpp.o
@@ -183,6 +238,7 @@ src/JsonSerializer.o: src/JsonSerializer.cpp.o
 # target to build an object file
 src/JsonSerializer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/JsonSerializer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/JsonSerializer.cpp.o
 .PHONY : src/JsonSerializer.cpp.o
 
 src/JsonSerializer.i: src/JsonSerializer.cpp.i
@@ -191,6 +247,7 @@ src/JsonSerializer.i: src/JsonSerializer.cpp.i
 # target to preprocess a source file
 src/JsonSerializer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/JsonSerializer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/JsonSerializer.cpp.i
 .PHONY : src/JsonSerializer.cpp.i
 
 src/JsonSerializer.s: src/JsonSerializer.cpp.s
@@ -199,6 +256,7 @@ src/JsonSerializer.s: src/JsonSerializer.cpp.s
 # target to generate assembly for a file
 src/JsonSerializer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/JsonSerializer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/JsonSerializer.cpp.s
 .PHONY : src/JsonSerializer.cpp.s
 
 src/PacketParser.o: src/PacketParser.cpp.o
@@ -249,6 +307,78 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+tests/test_blocking_queue.o: tests/test_blocking_queue.cpp.o
+.PHONY : tests/test_blocking_queue.o
+
+# target to build an object file
+tests/test_blocking_queue.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.o
+.PHONY : tests/test_blocking_queue.cpp.o
+
+tests/test_blocking_queue.i: tests/test_blocking_queue.cpp.i
+.PHONY : tests/test_blocking_queue.i
+
+# target to preprocess a source file
+tests/test_blocking_queue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.i
+.PHONY : tests/test_blocking_queue.cpp.i
+
+tests/test_blocking_queue.s: tests/test_blocking_queue.cpp.s
+.PHONY : tests/test_blocking_queue.s
+
+# target to generate assembly for a file
+tests/test_blocking_queue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.s
+.PHONY : tests/test_blocking_queue.cpp.s
+
+tests/test_flow_aggregator.o: tests/test_flow_aggregator.cpp.o
+.PHONY : tests/test_flow_aggregator.o
+
+# target to build an object file
+tests/test_flow_aggregator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/tests/test_flow_aggregator.cpp.o
+.PHONY : tests/test_flow_aggregator.cpp.o
+
+tests/test_flow_aggregator.i: tests/test_flow_aggregator.cpp.i
+.PHONY : tests/test_flow_aggregator.i
+
+# target to preprocess a source file
+tests/test_flow_aggregator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/tests/test_flow_aggregator.cpp.i
+.PHONY : tests/test_flow_aggregator.cpp.i
+
+tests/test_flow_aggregator.s: tests/test_flow_aggregator.cpp.s
+.PHONY : tests/test_flow_aggregator.s
+
+# target to generate assembly for a file
+tests/test_flow_aggregator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/tests/test_flow_aggregator.cpp.s
+.PHONY : tests/test_flow_aggregator.cpp.s
+
+tests/test_flow_key.o: tests/test_flow_key.cpp.o
+.PHONY : tests/test_flow_key.o
+
+# target to build an object file
+tests/test_flow_key.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/tests/test_flow_key.cpp.o
+.PHONY : tests/test_flow_key.cpp.o
+
+tests/test_flow_key.i: tests/test_flow_key.cpp.i
+.PHONY : tests/test_flow_key.i
+
+# target to preprocess a source file
+tests/test_flow_key.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/tests/test_flow_key.cpp.i
+.PHONY : tests/test_flow_key.cpp.i
+
+tests/test_flow_key.s: tests/test_flow_key.cpp.s
+.PHONY : tests/test_flow_key.s
+
+# target to generate assembly for a file
+tests/test_flow_key.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_key.dir/build.make CMakeFiles/test_flow_key.dir/tests/test_flow_key.cpp.s
+.PHONY : tests/test_flow_key.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -257,7 +387,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... flowguard_capture"
+	@echo "... test_blocking_queue"
+	@echo "... test_flow_aggregator"
+	@echo "... test_flow_key"
 	@echo "... src/FeatureEmitter.o"
 	@echo "... src/FeatureEmitter.i"
 	@echo "... src/FeatureEmitter.s"
@@ -273,6 +407,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... tests/test_blocking_queue.o"
+	@echo "... tests/test_blocking_queue.i"
+	@echo "... tests/test_blocking_queue.s"
+	@echo "... tests/test_flow_aggregator.o"
+	@echo "... tests/test_flow_aggregator.i"
+	@echo "... tests/test_flow_aggregator.s"
+	@echo "... tests/test_flow_key.o"
+	@echo "... tests/test_flow_key.i"
+	@echo "... tests/test_flow_key.s"
 .PHONY : help
 
 
