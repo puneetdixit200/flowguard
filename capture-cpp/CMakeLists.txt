@@ -34,6 +34,9 @@ add_executable(test_blocking_queue
 )
 target_link_libraries(test_blocking_queue pthread)
 
+add_executable(flowguard_benchmark src/benchmark.cpp src/PacketParser.cpp src/FlowAggregator.cpp)
+target_link_libraries(flowguard_benchmark pcap)
+
 # "make test" runs all three at once.
 enable_testing()
 add_test(NAME FlowKeyTest COMMAND test_flow_key)

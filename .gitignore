@@ -10,3 +10,16 @@ ml-service/.venv/
 ml-service/**/__pycache__/
 .env
 ml-service/.env
+
+# Large datasets downloaded locally
+data/cicids2017/
+ml-service/data/cicids2017/
+data/attack_samples/
+
+# Generated packet captures and flow outputs
+*.pcap
+*.pcapng
+data/flows_output*.jsonl
+
+# Downloaded archives
+*.zip

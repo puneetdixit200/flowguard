@@ -178,6 +178,19 @@ test_blocking_queue/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_blocking_queue.dir/build.make CMakeFiles/test_blocking_queue.dir/build
 .PHONY : test_blocking_queue/fast
 
+#=============================================================================
+# Target rules for targets named flowguard_benchmark
+
+# Build rule for target.
+flowguard_benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 flowguard_benchmark
+.PHONY : flowguard_benchmark
+
+# fast build rule for target.
+flowguard_benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/build
+.PHONY : flowguard_benchmark/fast
+
 src/FeatureEmitter.o: src/FeatureEmitter.cpp.o
 .PHONY : src/FeatureEmitter.o
 
@@ -212,6 +225,7 @@ src/FlowAggregator.o: src/FlowAggregator.cpp.o
 src/FlowAggregator.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/FlowAggregator.cpp.o
 .PHONY : src/FlowAggregator.cpp.o
 
 src/FlowAggregator.i: src/FlowAggregator.cpp.i
@@ -221,6 +235,7 @@ src/FlowAggregator.i: src/FlowAggregator.cpp.i
 src/FlowAggregator.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/FlowAggregator.cpp.i
 .PHONY : src/FlowAggregator.cpp.i
 
 src/FlowAggregator.s: src/FlowAggregator.cpp.s
@@ -230,6 +245,7 @@ src/FlowAggregator.s: src/FlowAggregator.cpp.s
 src/FlowAggregator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/FlowAggregator.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_flow_aggregator.dir/build.make CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/FlowAggregator.cpp.s
 .PHONY : src/FlowAggregator.cpp.s
 
 src/JsonSerializer.o: src/JsonSerializer.cpp.o
@@ -265,6 +281,7 @@ src/PacketParser.o: src/PacketParser.cpp.o
 # target to build an object file
 src/PacketParser.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/PacketParser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/PacketParser.cpp.o
 .PHONY : src/PacketParser.cpp.o
 
 src/PacketParser.i: src/PacketParser.cpp.i
@@ -273,6 +290,7 @@ src/PacketParser.i: src/PacketParser.cpp.i
 # target to preprocess a source file
 src/PacketParser.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/PacketParser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/PacketParser.cpp.i
 .PHONY : src/PacketParser.cpp.i
 
 src/PacketParser.s: src/PacketParser.cpp.s
@@ -281,7 +299,32 @@ src/PacketParser.s: src/PacketParser.cpp.s
 # target to generate assembly for a file
 src/PacketParser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_capture.dir/build.make CMakeFiles/flowguard_capture.dir/src/PacketParser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/PacketParser.cpp.s
 .PHONY : src/PacketParser.cpp.s
+
+src/benchmark.o: src/benchmark.cpp.o
+.PHONY : src/benchmark.o
+
+# target to build an object file
+src/benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/benchmark.cpp.o
+.PHONY : src/benchmark.cpp.o
+
+src/benchmark.i: src/benchmark.cpp.i
+.PHONY : src/benchmark.i
+
+# target to preprocess a source file
+src/benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/benchmark.cpp.i
+.PHONY : src/benchmark.cpp.i
+
+src/benchmark.s: src/benchmark.cpp.s
+.PHONY : src/benchmark.s
+
+# target to generate assembly for a file
+src/benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/flowguard_benchmark.dir/build.make CMakeFiles/flowguard_benchmark.dir/src/benchmark.cpp.s
+.PHONY : src/benchmark.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -388,6 +431,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... flowguard_benchmark"
 	@echo "... flowguard_capture"
 	@echo "... test_blocking_queue"
 	@echo "... test_flow_aggregator"
@@ -404,6 +448,9 @@ help:
 	@echo "... src/PacketParser.o"
 	@echo "... src/PacketParser.i"
 	@echo "... src/PacketParser.s"
+	@echo "... src/benchmark.o"
+	@echo "... src/benchmark.i"
+	@echo "... src/benchmark.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

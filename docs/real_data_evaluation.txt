@@ -1,0 +1,42 @@
+Loading a distributed sample from CICIDS2017...
+
+===== REAL CICIDS2017 DATASET =====
+Evaluated rows: 200,000
+Real attack rows: 38,551
+Real benign rows: 161,449
+
+===== ISOLATION FOREST =====
+Accuracy:  0.1928
+Precision: 0.1928
+Recall:    1.0000
+F1:        0.3232
+Confusion matrix:
+[[    12 161437]
+ [     0  38551]]
+
+===== RANDOM FOREST =====
+Accuracy:  0.8072
+Precision: 0.0000
+Recall:    0.0000
+F1:        0.0000
+Confusion matrix:
+[[161449      0]
+ [ 38551      0]]
+
+===== AUTOENCODER =====
+Accuracy:  0.2017
+Precision: 0.1944
+Recall:    0.9993
+F1:        0.3255
+Confusion matrix:
+[[  1815 159634]
+ [    28  38523]]
+
+===== 2-OF-3 ENSEMBLE =====
+Accuracy:  0.2017
+Precision: 0.1944
+Recall:    0.9993
+F1:        0.3255
+Confusion matrix:
+[[  1817 159632]
+ [    28  38523]]

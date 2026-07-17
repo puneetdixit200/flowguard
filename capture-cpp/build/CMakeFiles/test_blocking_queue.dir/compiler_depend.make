@@ -255,13 +255,13 @@ test_blocking_queue: /usr/lib/Scrt1.o \
   /usr/lib/libgcc_s.so.1 \
   /usr/lib/libm.so \
   /usr/lib/libpthread.a \
-  /usr/lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc_s.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
@@ -279,6 +279,8 @@ CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.o:
 /usr/lib/libc_nonshared.a:
 
 /usr/lib/ld-linux-x86-64.so.2:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a:
 
@@ -447,8 +449,6 @@ CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.o:
 /usr/include/c++/16/bits/locale_facets.h:
 
 /usr/include/bits/struct_mutex.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
 
 /usr/include/assert.h:
 
@@ -638,6 +638,8 @@ CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.o:
 
 /usr/include/c++/16/bits/stl_vector.h:
 
+/usr/include/locale.h:
+
 /usr/include/c++/16/bits/streambuf.tcc:
 
 /usr/include/bits/types/__sigset_t.h:
@@ -798,6 +800,4 @@ CMakeFiles/test_blocking_queue.dir/tests/test_blocking_queue.cpp.o:
 
 /usr/lib/libpthread.a:
 
-/usr/include/locale.h:
-
-/usr/lib/libstdc++.so:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:

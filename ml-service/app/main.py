@@ -31,25 +31,70 @@ def get_recent_flows(limit: int = 20):
 
 
 @app.post("/analyze")
-async def analyze_flows():
+async def analyze_flows(
+    offset: int = 0,
+    limit: int = 100,
+    persist: bool = False,
+):
     """
-    Runs the full ensemble (Isolation Forest + Random Forest + Autoencoder)
-    over every captured flow and stores an alert for each anomaly found.
+    Analyze captured flows in manageable batches.
+
+    persist=false:
+        Score flows without inserting alerts into PostgreSQL.
+
+    persist=true:
+        Score flows and save detected anomalies as alerts.
     """
-    flows = read_all_flows()
-    new_alerts = []
+
+    if offset < 0:
+        raise HTTPException(
+            status_code=400,
+            detail="offset must be zero or greater",
+        )
+
+    if limit < 1 or limit > 1000:
+        raise HTTPException(
+            status_code=400,
+            detail="limit must be between 1 and 1000",
+        )
+
+    all_flows = read_all_flows()
+    flows = all_flows[offset:offset + limit]
+
+    anomalies = 0
+    persisted_alerts = 0
 
     for flow in flows:
         features = normalize_flow(flow)
-        # Build the feature vector in the EXACT training column order.
-        feature_row = [features.get(col, 0.0) for col in FEATURE_COLUMNS]
+
+        feature_row = [
+            features.get(column, 0.0)
+            for column in FEATURE_COLUMNS
+        ]
 
         result = detector.score(feature_row)
-        if result["is_anomaly"]:
-            alert = await create_alert(flow, result)
-            new_alerts.append(alert)
 
-    return {"analyzed": len(flows), "new_alerts": len(new_alerts)}
+        if result["is_anomaly"]:
+            anomalies += 1
+
+            if persist:
+                await create_alert(flow, result)
+                persisted_alerts += 1
+
+    next_offset = offset + len(flows)
+
+    return {
+        "total_available_flows": len(all_flows),
+        "offset": offset,
+        "analyzed": len(flows),
+        "anomalies_detected": anomalies,
+        "persisted_alerts": persisted_alerts,
+        "next_offset": (
+            next_offset
+            if next_offset < len(all_flows)
+            else None
+        ),
+    }
 
 
 @app.get("/alerts")

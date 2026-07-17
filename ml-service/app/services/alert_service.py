@@ -37,17 +37,17 @@ async def create_alert(flow: dict, result: dict) -> dict:
     src_intel = await check_ip(flow.get("src_ip"))
     dst_intel = await check_ip(flow.get("dst_ip"))
 
-    intel_matched = src_intel["note"] or dst_intel["note"]
+    intel_matched = bool(src_intel.get("matched") or dst_intel.get("matched"))
     intel_note = src_intel["note"] or dst_intel["note"] or ""
     details = result.get("details", {})
     explanation = build_explanation(result)
 
     alert=await prisma.alert.create(data={
-        "srcIp": flow.get("src_ip"),
-        "dstIp": flow.get("dst_ip"),
+        "srcIP": flow.get("src_ip"),
+        "dstIP": flow.get("dst_ip"),
         "protocol": flow.get("protocol"),
         "severity": result["severity"],
-        "confidence": result["confidence"],
+        "confidence": str(result.get("confidence", "unknown")),
         "votes": result["votes"],
         "predictedClass": result.get("predicted_class", "unknown"),
         "isoForestVerdict": details.get("isolation_forest", "unknown"),
@@ -59,7 +59,7 @@ async def create_alert(flow: dict, result: dict) -> dict:
     })
 
     alert_dict={
-        "id": alert.id, "src_ip": alert.srcIp, "dst_ip": alert.dstIp,
+        "id": alert.id, "src_ip": alert.srcIP, "dst_ip": alert.dstIP,
               "severity": alert.severity, "confidence": alert.confidence,
               "votes": alert.votes, "explanation": alert.explanation,
               "threat_intel_match": alert.threatIntelMatch,

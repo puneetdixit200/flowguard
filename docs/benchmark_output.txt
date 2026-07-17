@@ -1,0 +1,54 @@
+{
+  "isolation_forest": {
+    "accuracy": 0.9511,
+    "precision": 0.7254,
+    "recall": 0.9364,
+    "f1": 0.8175,
+    "average_inference_ms": 15.382
+  },
+  "random_forest": {
+    "accuracy": 0.9979,
+    "precision": 1.0,
+    "recall": 0.9818,
+    "f1": 0.9908,
+    "average_inference_ms": 48.7136
+  },
+  "autoencoder": {
+    "accuracy": 0.9415,
+    "precision": 0.7068,
+    "recall": 0.8545,
+    "f1": 0.7737,
+    "average_inference_ms": 1.1565,
+    "threshold": 0.72732013463974
+  },
+  "ensemble": {
+    "accuracy": 0.9894,
+    "precision": 0.963,
+    "recall": 0.9455,
+    "f1": 0.9541,
+    "false_positives": 4,
+    "false_negatives": 6
+  },
+  "dataset_scale": {
+    "training_rows": 4700,
+    "test_rows": 940,
+    "total_rows": 5640,
+    "feature_count": 11,
+    "class_count": 3,
+    "classes": [
+      "BENIGN",
+      "DDoS",
+      "PortScan"
+    ],
+    "test_attack_rows": 110,
+    "test_benign_rows": 830
+  },
+  "ensemble_throughput": {
+    "flows_scored": 940,
+    "total_seconds": 76.0459,
+    "flows_per_second": 12.36,
+    "average_ensemble_ms_per_flow": 80.8999
+  }
+}
+
+Saved metrics to: /home/pd/Downloads/flowguard/docs/resume_metrics.json

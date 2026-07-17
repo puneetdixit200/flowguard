@@ -1,0 +1,30 @@
+
+Reading: Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
+  Processed 99,984 clean rows  Processed 199,978 clean rows  Processed 225,711 clean rows  Finished with 225,711 clean rows
+
+Reading: Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv
+  Processed 99,935 clean rows  Processed 199,746 clean rows  Processed 286,096 clean rows  Finished with 286,096 clean rows
+
+Reading: Friday-WorkingHours-Morning.pcap_ISCX.csv
+  Processed 99,930 clean rows  Processed 190,911 clean rows  Finished with 190,911 clean rows
+
+Reading: Monday-WorkingHours.pcap_ISCX.csv
+  Processed 99,906 clean rows  Processed 199,821 clean rows  Processed 299,769 clean rows  Processed 399,681 clean rows  Processed 499,587 clean rows  Processed 529,481 clean rows  Finished with 529,481 clean rows
+
+Reading: Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv
+  Processed 99,964 clean rows  Processed 199,850 clean rows  Processed 288,395 clean rows  Finished with 288,395 clean rows
+
+Reading: Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv
+  Processed 99,910 clean rows  Processed 170,231 clean rows  Finished with 170,231 clean rows
+
+Reading: Tuesday-WorkingHours.pcap_ISCX.csv
+  Processed 99,929 clean rows  Processed 199,872 clean rows  Processed 299,810 clean rows  Processed 399,757 clean rows  Processed 445,645 clean rows  Finished with 445,645 clean rows
+
+Reading: Wednesday-workingHours.pcap_ISCX.csv
+  Processed 99,869 clean rows  Processed 199,498 clean rows  Processed 299,071 clean rows  Processed 398,907 clean rows  Processed 498,820 clean rows  Processed 598,763 clean rows  Processed 691,406 clean rows  Finished with 691,406 clean rows
+
+===== CICIDS2017 PREPARATION COMPLETE =====
+Output: /home/pd/Downloads/flowguard/ml-service/data/cicids2017/real_test_set.csv
+Total clean rows: 2,827,876
+Benign rows: 2,271,320
+Attack rows: 556,556

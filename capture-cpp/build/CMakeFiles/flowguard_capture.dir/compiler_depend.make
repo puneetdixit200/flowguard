@@ -1188,13 +1188,13 @@ flowguard_capture: /usr/lib/Scrt1.o \
   /usr/lib/libgcc_s.so.1 \
   /usr/lib/libm.so \
   /usr/lib/libpcap.so \
-  /usr/lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc_s.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
@@ -1227,7 +1227,11 @@ CMakeFiles/flowguard_capture.dir/src/PacketParser.cpp.o:
 
 /usr/lib/ld-linux-x86-64.so.2:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:
 
 /usr/lib/libm.so:
 
@@ -1809,8 +1813,6 @@ CMakeFiles/flowguard_capture.dir/src/main.cpp.o:
 
 /usr/include/linux/sched/types.h:
 
-/usr/lib/libstdc++.so:
-
 /home/pd/Downloads/flowguard/capture-cpp/include/FlowAggregator.hpp:
 
 /usr/include/locale.h:
@@ -1870,8 +1872,6 @@ CMakeFiles/flowguard_capture.dir/src/main.cpp.o:
 /usr/include/bits/in.h:
 
 /usr/include/bits/sockaddr.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
 
 /usr/include/bits/socket_type.h:
 

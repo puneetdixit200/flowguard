@@ -223,13 +223,13 @@ test_flow_key: /usr/lib/Scrt1.o \
   /usr/lib/libc.so \
   /usr/lib/libgcc_s.so.1 \
   /usr/lib/libm.so \
-  /usr/lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libgcc_s.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
@@ -244,7 +244,7 @@ test_flow_key: /usr/lib/Scrt1.o \
 
 /usr/lib/libc_nonshared.a:
 
-/usr/lib/libstdc++.so:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:
 
 /usr/lib/libm.so:
 
@@ -394,6 +394,8 @@ test_flow_key: /usr/lib/Scrt1.o \
 
 /usr/include/bits/thread-shared-types.h:
 
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so:
+
 /usr/include/c++/16/clocale:
 
 /usr/include/bits/stdint-uintn.h:
@@ -491,8 +493,6 @@ test_flow_key: /usr/lib/Scrt1.o \
 /usr/lib/ld-linux-x86-64.so.2:
 
 /usr/include/assert.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
 
 /usr/include/bits/struct_mutex.h:
 
