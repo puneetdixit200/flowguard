@@ -1,30 +1,66 @@
-# FlowGuard — Case Study
+# FlowGuard Case Study
 
 ## Objective
-Detect network anomalies (port scans, DDoS, brute force) in real time using
-a C++ packet-capture pipeline and a 3-model ML ensemble.
 
-## Approach
-- C++17 + libpcap for performance-sensitive packet parsing and flow aggregation
-- Producer-consumer threading with a bounded blocking queue
-- Python ensemble: Isolation Forest (unsupervised), Random Forest (supervised
-  multi-class), PyTorch Autoencoder (reconstruction-error anomaly detection)
-- 2-of-3 vote rule to reduce false positives from any single model
-- PostgreSQL (via Prisma) for durable alert storage, Redis Pub/Sub for
-  real-time dashboard updates
-- Local threat intel correlation against known-bad IP ranges
+Build a local network anomaly detection pipeline that:
 
-## Findings
-- On synthetic held-out test data: [paste your evaluate_models.py output here]
-- On real attack pcap replay: [document real false positive/negative rate here]
-- Isolation Forest alone had the highest false positive rate; Random Forest
-  was most precise but needs labeled data the other two don't
-- The ensemble reduced false positives by requiring agreement, at the cost
-  of slightly lower recall on subtle/stealthy attacks
+- converts packets into flows
+- scores flows with a three-model ensemble
+- stores alerts in PostgreSQL
+- broadcasts alert activity through Redis
+- exposes status through a FastAPI API and dashboard
 
-## Reflection
-- Rule-based systems are easy to reason about but miss unknown attack shapes
-- Unsupervised models catch novelty but are noisier
-- Explainability (showing WHY a flow was flagged) mattered more for trust
-  than raw model accuracy
-- Next step: adversarial testing against slow/low-and-slow scan patterns
+## Implementation
+
+- `capture-cpp` handles flow aggregation in C++ with libpcap
+- `ml-service` loads saved models once at process start and exposes inference via FastAPI
+- PostgreSQL stores durable alert records
+- Redis publishes alert activity and caches counts
+- `dashboard` is a static frontend served by Nginx
+
+## Docker Outcome
+
+Verified on Friday, July 17, 2026:
+
+- `docker compose up -d --build` succeeds
+- the API is reachable on `http://127.0.0.1:8000`
+- the dashboard is reachable on `http://127.0.0.1:8080`
+
+Key Docker corrections:
+
+- the dashboard image now matches the actual static frontend
+- the ML image installs CPU-only PyTorch wheels
+- Redis configuration is environment-driven instead of hardcoded to `localhost`
+- Prisma setup is performed automatically during container startup
+- Postgres and Redis no longer publish host ports, which avoids local-port conflicts
+
+## Evaluation Results
+
+Held-out dataset size:
+
+- `940` rows
+- `830` benign
+- `110` attack
+
+Final ensemble metrics:
+
+- Accuracy: `0.9894`
+- Precision: `0.9630`
+- Recall: `0.9455`
+- F1: `0.9541`
+- False positives: `4`
+- False negatives: `6`
+
+## Main Findings
+
+- The ensemble materially outperforms the individual anomaly detectors.
+- Aggregate accuracy on the Random Forest is good, but minority attack classes
+  are still harder than the top-line metric suggests.
+- Container startup correctness mattered as much as model quality; the previous
+  Docker path was not aligned with the actual repo contents or runtime dependencies.
+
+## Follow-Up Work
+
+- move Prisma generation out of runtime startup if container boot time matters
+- either wire the saved GNN into the live API path or explicitly treat it as offline-only
+- add integration tests for `/alerts` against a real disposable Postgres instance

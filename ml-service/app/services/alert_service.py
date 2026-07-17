@@ -38,7 +38,9 @@ async def create_alert(flow: dict, result: dict) -> dict:
     dst_intel = await check_ip(flow.get("dst_ip"))
 
     intel_matched = src_intel["note"] or dst_intel["note"]
+    intel_note = src_intel["note"] or dst_intel["note"] or ""
     details = result.get("details", {})
+    explanation = build_explanation(result)
 
     alert=await prisma.alert.create(data={
         "srcIp": flow.get("src_ip"),
@@ -71,12 +73,17 @@ async def create_alert(flow: dict, result: dict) -> dict:
 
     return alert_dict
 
-async def get_recent_alert_count():
+async def get_all_alerts():
     prisma = await get_prisma()
-    alerts = await prisma.alert.find_many(order_by={"createdAt": "desc"}, take =100)
+    alerts = await prisma.alert.find_many(order={"createdAt": "desc"}, take=100)
     return alerts
 
 async def get_alert_by_id(alert_id: str):
     prisma = await get_prisma()
-    alert = await prisma.alert.find_unique(where={"id": alert_id})
+    try:
+        alert_pk = int(alert_id)
+    except ValueError:
+        return None
+
+    alert = await prisma.alert.find_unique(where={"id": alert_pk})
     return alert

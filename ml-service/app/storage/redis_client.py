@@ -5,12 +5,17 @@ Publisher side: alert_service.py calls publish_alert() whenever a new alert is c
 Subscriber side: websocket.py listens and pushes to connected dashboard clients. [web:83]
 '''
 
-import redis
 import json
+import os
+import redis
 
 #decode_response is True means we get the plian strings back intread of bytes
 
-redis_client = redis.Redis(host='localhost',port=6379, decode_response=True)
+redis_client = redis.Redis(
+    host=os.getenv("REDIS_HOST", "localhost"),
+    port=int(os.getenv("REDIS_PORT", "6379")),
+    decode_responses=True,
+)
 
 ALERT_CHANNEL ="flowguard:alerts"
 

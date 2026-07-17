@@ -1,0 +1,49 @@
+Evaluating on 940 UNSEEN test rows (110 attacks, 830 benign)
+
+=== ISOLATION FOREST (unsupervised, binary anomaly detection) ===
+Accuracy:  0.9511
+Precision: 0.7254
+Recall:    0.9364
+F1:        0.8175
+Confusion matrix [rows=actual, cols=predicted] (0=normal,1=anomaly):
+[[791  39]
+ [  7 103]]
+
+=== RANDOM FOREST (supervised, multi-class) ===
+Accuracy: 0.9521
+              precision    recall  f1-score   support
+
+      BENIGN       1.00      1.00      1.00       830
+        DDoS       0.47      0.50      0.48        40
+    PortScan       0.69      0.64      0.67        70
+
+    accuracy                           0.95       940
+   macro avg       0.72      0.71      0.72       940
+weighted avg       0.95      0.95      0.95       940
+
+Confusion matrix:
+[[830   0   0]
+ [  0  20  20]
+ [  2  23  45]]
+
+=== AUTOENCODER (deep learning, reconstruction-error anomaly) ===
+Threshold used: 0.727320
+Accuracy:  0.9415
+Precision: 0.7068
+Recall:    0.8545
+F1:        0.7737
+Confusion matrix:
+[[791  39]
+ [ 16  94]]
+
+=== ENSEMBLE (2-of-3 vote across all three models) ===
+Accuracy:  0.9894
+Precision: 0.9630
+Recall:    0.9455
+F1:        0.9541
+Confusion matrix:
+[[826   4]
+ [  6 104]]
+
+False positives: 4 | False negatives: 6
+These numbers are your honest failure cases — document them in docs/false-positive-analysis.md
