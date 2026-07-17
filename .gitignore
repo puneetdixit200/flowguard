@@ -23,3 +23,8 @@ data/flows_output*.jsonl
 
 # Downloaded archives
 *.zip
+
+# Runtime files
+docs/uvicorn*.log
+docs/uvicorn*.pid
+*.pid
