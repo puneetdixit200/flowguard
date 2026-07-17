@@ -28,3 +28,33 @@ data/flows_output*.jsonl
 docs/uvicorn*.log
 docs/uvicorn*.pid
 *.pid
+# Python
+*.py[cod]
+venv/
+.env.*
+# Build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+# Node / React
+node_modules/
+dist/
+.vite/
+# IDE and OS
+.vscode/
+.idea/
+.zed/
+.DS_Store
+Thumbs.db
+# Large datasets
+# Packet captures and generated flow data
+data/real_attack_flows.jsonl
+*.tar
+*.tar.gz
+# Database and cache files
+*.db
+*.sqlite
+*.sqlite3
+# Logs
+*.log
