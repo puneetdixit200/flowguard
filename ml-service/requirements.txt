@@ -8,3 +8,5 @@ torch
 prisma
 redis
 python-dotenv
+networkx
+torch-geometric
