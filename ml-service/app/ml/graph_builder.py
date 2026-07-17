@@ -14,22 +14,22 @@ def build_ip_graph(flows:list [dict]) -> nx.DiGraph:
     G = nx.DiGraph()
 
     for flow  in flows:
-        scr,dst = flow["scr_ip"],flow["dist_ip"]
+        src, dst = flow["src_ip"], flow["dst_ip"]
         #enusre both node exixt before adding stats
-        if scr not in G:
-            G.add_node(scr ,out_flows=0 ,out_bytes=0 ,unique_peers=0 , syn_sent=0)
+        if src not in G:
+            G.add_node(src ,out_flows=0 ,out_bytes=0 ,unique_peers=set() , syn_sent=0)
         if dst not in G:
-            G.add_node(dst ,out_flows=0 ,out_bytes=0 ,unique_peers=0 , syn_sent=0)
+            G.add_node(dst ,out_flows=0 ,out_bytes=0 ,unique_peers=set() , syn_sent=0)
 
-           # Update source node's behavior stats — this is the key signal:
-                # a scanning host will have MANY unique_peers and LOW bytes per flow.
-        G.nodes[scr]["out_flows"] += 1
-        G.nodes[scr]["out_bytes"] += flow.get("total_bytes", 0)
-        G.nodes[scr]["unique_peers"].add(dst)
-        G.nodes[scr]["syn_sent"] += flow.get("syn_sent", 0)
+        # Update source node's behavior stats — this is the key signal:
+        # a scanning host will have MANY unique_peers and LOW bytes per flow.
+        G.nodes[src]["out_flows"] += 1
+        G.nodes[src]["out_bytes"] += flow.get("total_bytes", 0)
+        G.nodes[src]["unique_peers"].add(dst)
+        G.nodes[src]["syn_sent"] += flow.get("syn_count", 0)
 
         #add the edge itself , carrying the flow
-        G.add_edge(scr, dst, packets=flow.get("packet_count", 0),
+        G.add_edge(src, dst, packets=flow.get("packet_count", 0),
             bytes=flow.get("total_bytes", 0),
             protocol=flow.get("protocol", "OTHER"))
     return G
@@ -58,6 +58,5 @@ def graph_to_pyg_data(G: nx.DiGraph) -> tuple[Data, list[str]]:
     data = Data(
         x=x,
         edge_index=edge_index,
-        edge_attr=edge_attr,
     )
     return data, node_list

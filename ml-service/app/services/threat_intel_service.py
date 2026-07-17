@@ -23,10 +23,10 @@ async def seed_threat_intel():
                 "source": row["source"],
             })
 
-async def cehck_ip(ip:str)->dict:
+async def check_ip(ip:str)->dict:
     """return match info if IP is a known bad IP"""
     prisma = await get_prisma()
     match = await prisma.threatintelentry.find_unique(where={"ip": ip})
     if match:
         return {"matched": True, "note": f"Matches known {match.category} ({match.source})"}
-    return {}
+    return {"matched": False, "note": ""}

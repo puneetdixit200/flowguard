@@ -6,7 +6,7 @@ test_flow_aggregator: \
   CMakeFiles/test_flow_aggregator.dir/src/FlowAggregator.cpp.o \
   CMakeFiles/test_flow_aggregator.dir/src/JsonSerializer.cpp.o \
   CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
@@ -21,7 +21,7 @@ test_flow_aggregator: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
@@ -52,7 +52,7 @@ CMakeFiles/test_flow_aggregator.dir/src/JsonSerializer.cpp.o:
 
 CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.o:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so:
 
@@ -82,7 +82,7 @@ CMakeFiles/test_flow_aggregator.dir/src/FeatureEmitter.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so:
 

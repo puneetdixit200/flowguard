@@ -8,7 +8,7 @@ flowguard_capture: \
   CMakeFiles/flowguard_capture.dir/src/JsonSerializer.cpp.o \
   CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libpcap.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so \
@@ -23,7 +23,7 @@ flowguard_capture: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so \
@@ -62,7 +62,7 @@ CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libpcap.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libstdc++.so:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libstdc++.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libm.so:
 
@@ -92,7 +92,7 @@ CMakeFiles/flowguard_capture.dir/src/FeatureEmitter.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic_asneeded.so:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.a:
+/usr/lib/gcc/x86_64-pc-linux-gnu/16/libatomic.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.so:
 

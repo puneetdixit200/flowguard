@@ -92,8 +92,8 @@ def main():
             acc = (pred == y).float().mean().item()
             print(f'Epoch {epoch:03d}, Loss: {loss.item():.4f}, Train Accuracy: {acc:.4f}')
 
-    torch.save(model.state_dict(), "../app/models/gnn_meta.py")
-    torch.save({"in_channels": data.x.shape[1]}, "../app/models/gnn_meta.pt")
+    torch.save(model.state_dict(), "app/models/gnn_graphsage.pt")
+    torch.save({"in_channels": data.x.shape[1]}, "app/models/gnn_meta.pt")
     print("GNN model saved -> ../app/models/gnn_graphsage.pt")
 
 if __name__ == "__main__":

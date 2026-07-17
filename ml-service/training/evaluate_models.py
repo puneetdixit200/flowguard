@@ -4,6 +4,7 @@ Everything runs on test_holdout.csv — data none of the models saw during
 training — so these numbers are trustworthy, not inflated. [web:54]
 """
 import pandas as pd
+from pathlib import Path
 import numpy as np
 import joblib
 import torch
@@ -16,17 +17,29 @@ from prepare_cicids_data import FEATURE_COLUMNS
 from app.ml.autoencoder_def import Autoencoder
 
 def load_all_models():
-    scaler = joblib.load("../app/models/scaler.joblib")
-    iso_forest = joblib.load("../app/models/isolation_forest.joblib")
-    rf_model = joblib.load("../app/models/random_forest.joblib")
-    encoder = joblib.load("../app/models/label_encoder.joblib")
-    ae_meta = joblib.load("../app/models/autoencoder_meta.joblib")
+    project_root = Path(__file__).resolve().parents[1]
+    models_dir = project_root / "app" / "models"
+
+    scaler = joblib.load(models_dir / "scaler.joblib")
+    iso_forest = joblib.load(models_dir / "isolation_forest.joblib")
+    rf_model = joblib.load(models_dir / "random_forest.joblib")
+    encoder = joblib.load(models_dir / "label_encoder.joblib")
+    ae_meta = joblib.load(models_dir / "autoencoder_meta.joblib")
 
     autoencoder = Autoencoder(ae_meta["input_dim"])
-    autoencoder.load_state_dict(torch.load("../app/models/autoencoder.pt"))
+    autoencoder.load_state_dict(
+        torch.load(models_dir / "autoencoder.pt", map_location="cpu")
+    )
     autoencoder.eval()
 
-    return scaler, iso_forest, rf_model, encoder, autoencoder, ae_meta["threshold"]
+    return (
+        scaler,
+        iso_forest,
+        rf_model,
+        encoder,
+        autoencoder,
+        ae_meta["threshold"],
+    )
 
 def evaluate_isolation_forest(iso_forest, scaler, X, y_true_binary):
     """Isolation Forest only knows normal vs anomaly, not attack types."""
@@ -94,7 +107,9 @@ def evaluate_ensemble(iso_preds, rf_is_attack, ae_preds, y_true_binary):
     print("These numbers are your honest failure cases — document them in docs/false-positive-analysis.md")
 
 def main():
-    df = pd.read_csv("../data/sample/test_holdout.csv")
+    project_root = Path(__file__).resolve().parents[1]
+    test_data_path = project_root / "data" / "sample" / "test_holdout.csv"
+    df = pd.read_csv(test_data_path)
     X = df[FEATURE_COLUMNS]
 
     scaler, iso_forest, rf_model, encoder, autoencoder, threshold = load_all_models()

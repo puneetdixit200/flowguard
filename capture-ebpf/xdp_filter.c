@@ -55,7 +55,7 @@ The program also sends a small summary of each packet to a userspace program:
 
 // TCP (Transmission Control Protocol) header definition: struct tcphdr.
 #include <linux/tcp.h>
-
+#include <linux/in.h>
 // UDP (User Datagram Protocol) header definition: struct udphdr.
 #include <linux/udp.h>
 
