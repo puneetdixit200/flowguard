@@ -1,0 +1,19 @@
+Packets loaded: 29125
+Repetitions: 7
+
+Run 1: inspected=29125 parsed=29125 wall_ns_per_packet=110.278 cpu_ns_per_packet=108.456 packets_per_second=9067962.864 cpu_percent=98.348
+Run 2: inspected=29125 parsed=29125 wall_ns_per_packet=100.470 cpu_ns_per_packet=99.877 packets_per_second=9953212.213 cpu_percent=99.409
+Run 3: inspected=29125 parsed=29125 wall_ns_per_packet=136.940 cpu_ns_per_packet=134.828 packets_per_second=7302474.643 cpu_percent=98.458
+Run 4: inspected=29125 parsed=29125 wall_ns_per_packet=128.016 cpu_ns_per_packet=127.151 packets_per_second=7811544.511 cpu_percent=99.324
+Run 5: inspected=29125 parsed=29125 wall_ns_per_packet=128.340 cpu_ns_per_packet=111.315 packets_per_second=7791799.896 cpu_percent=86.734
+Run 6: inspected=29125 parsed=29125 wall_ns_per_packet=106.409 cpu_ns_per_packet=105.689 packets_per_second=9397719.895 cpu_percent=99.324
+Run 7: inspected=29125 parsed=29125 wall_ns_per_packet=102.140 cpu_ns_per_packet=101.490 packets_per_second=9790435.929 cpu_percent=99.363
+
+===== C++ PARSER MEDIAN =====
+CPP_TOTAL_PACKETS=29125
+CPP_PARSED_PACKETS=29125
+CPP_MEDIAN_WALL_NS_PER_PACKET=110.278
+CPP_MEDIAN_CPU_NS_PER_PACKET=108.456
+CPP_MEDIAN_PACKETS_PER_SECOND=9067962.864
+CPP_MEDIAN_CPU_PERCENT=99.324
+CHECKSUM=1454654

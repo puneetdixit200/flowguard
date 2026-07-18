@@ -42,3 +42,22 @@ enable_testing()
 add_test(NAME FlowKeyTest COMMAND test_flow_key)
 add_test(NAME FlowAggregatorTest COMMAND test_flow_aggregator)
 add_test(NAME BlockingQueueTest COMMAND test_blocking_queue)
+
+
+# FlowGuard packet-parser-only benchmark
+add_executable(
+    flowguard_parser_benchmark
+    src/parser_benchmark.cpp
+    src/PacketParser.cpp
+)
+
+target_link_libraries(
+    flowguard_parser_benchmark
+    pcap
+)
+
+target_compile_options(
+    flowguard_parser_benchmark
+    PRIVATE
+    -O3
+)

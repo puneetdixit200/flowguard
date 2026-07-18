@@ -1,0 +1,27 @@
+{
+  "workload": {
+    "pcap": "2025-10-02-traffic-from-infected-Android-phone.pcap",
+    "packets_per_loop": 29125,
+    "pcap_loops_per_run": 50,
+    "measured_runs": 7
+  },
+  "cpp_parser": {
+    "median_cpu_ns_per_packet": 108.456,
+    "median_wall_ns_per_packet": 110.278,
+    "median_packets_per_second": 9067962.864
+  },
+  "ebpf_xdp_parser": {
+    "attach_mode": "native",
+    "median_kernel_ns_per_packet": 62.301,
+    "median_kernel_equivalent_pps": 16051174.705,
+    "median_sustained_replay_pps": 316329.887,
+    "median_delivery_percent": 100.000069,
+    "median_packet_loss_percent": 0.0
+  },
+  "comparison": {
+    "cpu_cost_speedup_x": 1.7408388308373863,
+    "wall_cost_speedup_x": 1.7700839472881655,
+    "equivalent_throughput_speedup_x": 1.7700970930001814,
+    "kernel_cost_reduction_percent": 42.556428413365786
+  }
+}
