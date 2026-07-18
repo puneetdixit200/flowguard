@@ -12,14 +12,8 @@ ml-service/**/__pycache__/
 ml-service/.env
 
 # Large datasets downloaded locally
-data/cicids2017/
-ml-service/data/cicids2017/
-data/attack_samples/
 
 # Generated packet captures and flow outputs
-*.pcap
-*.pcapng
-data/flows_output*.jsonl
 
 # Downloaded archives
 *.zip
@@ -49,7 +43,6 @@ dist/
 Thumbs.db
 # Large datasets
 # Packet captures and generated flow data
-data/real_attack_flows.jsonl
 *.tar
 *.tar.gz
 # Database and cache files
