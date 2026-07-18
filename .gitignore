@@ -58,3 +58,4 @@ data/real_attack_flows.jsonl
 *.sqlite3
 # Logs
 *.log
+# Local datasets and generated data
