@@ -1,0 +1,7 @@
+{
+  "isolation_forest": 0.3293982481655856,
+  "random_forest": 0.023552277985182894,
+  "autoencoder": 0.0008745370761025697,
+  "graphsage": 0.511871262550354,
+  "ensemble_required_votes": 4
+}

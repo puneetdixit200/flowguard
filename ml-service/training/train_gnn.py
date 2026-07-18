@@ -19,82 +19,95 @@ Scanner hosts:
 
 Later, this synthetic generator should be replaced with real labelled flows.
 """
-
+# ml-service/training/train_gnn.py
+"""
+Trains GraphSAGE with 4 fixes aimed directly at false positives:
+  1. class_weight in the loss -> stops the model from over-predicting "attack"
+     just because attacks are rarer (imbalance-driven false positives).
+  2. NeighborLoader mini-batching -> trains on graph neighborhoods instead of
+     the whole graph at once, which generalizes better on larger real graphs.
+  3. Validation split + early stopping -> stops training the moment validation
+     loss stops improving, instead of overfitting the training graph.
+  4. Dropout (already added in gnn_model.py) works together with this.
+"""
 import torch
 import torch.nn.functional as F
-import networkx as nx
-import random
+from torch_geometric.loader import NeighborLoader
 from app.ml.gnn_model import FlowGraphSAGE
-from app.ml.graph_builder import graph_to_pyg_data
+from app.ml.graph_builder import build_ip_graph, graph_to_pyg_data
+import pandas as pd
 
+df = pd.read_csv("../data/raw/cicids2017_sample.csv")
+flows = df.to_dict("records")
 
-def generate_synthetic_flow_graph(n_normal_hosts=40, n_scanners=5, n_targets=60):
-    """
-    Builds a synthetic network: normal hosts talk to a few peers with
-    real byte volume; scanner hosts touch MANY targets with near-zero bytes
-    """
-    flows = []
+G = build_ip_graph(flows)
+data, node_list = graph_to_pyg_data(G)
 
-    normal_ips = [f"10.0.0.{i}" for i in range(n_normal_hosts)]
-    scanner_ips = [f"10.0.1.{i}" for i in range(n_scanners)]
-    target_ips = [f"10.0.2.{i}" for i in range(n_targets)]
+# ---- Class weighting: compute weight inversely proportional to class frequency ----
+num_pos = int(data.y.sum())
+num_neg = int((data.y == 0).sum())
+total = num_pos + num_neg
+weight_for_benign = total / (2.0 * num_neg) if num_neg > 0 else 1.0
+weight_for_attack = total / (2.0 * num_pos) if num_pos > 0 else 1.0
+class_weights = torch.tensor([weight_for_benign, weight_for_attack], dtype=torch.float)
+print(f"Class weights -> benign: {weight_for_benign:.3f}, attack: {weight_for_attack:.3f}")
 
-    # Normal traffic: each normal host talks to 2-5 random targets with real bytes.
-    for ip in normal_ips:
-        peers = random.sample(target_ips, k=random.randint(2, 5))
-        for peer in peers:
-            flows.append({
-                "src_ip": ip, "dst_ip": peer, "protocol": "TCP",
-                "packet_count": random.randint(10, 200),
-                "total_bytes": random.randint(2000, 50000),
-                "syn_count": random.randint(1, 3),
-            })
+# ---- Train/val split at the node level ----
+num_nodes = data.num_nodes
+perm = torch.randperm(num_nodes)
+train_size = int(0.8 * num_nodes)
+train_mask = torch.zeros(num_nodes, dtype=torch.bool)
+val_mask = torch.zeros(num_nodes, dtype=torch.bool)
+train_mask[perm[:train_size]] = True
+val_mask[perm[train_size:]] = True
 
-    # Scanner traffic: each scanner touches MANY targets, each with tiny bytes.
-    for ip in scanner_ips:
-        peers = random.sample(target_ips, k=random.randint(30, 60))
-        for peer in peers:
-            flows.append({
-                "src_ip": ip, "dst_ip": peer, "protocol": "TCP",
-                "packet_count": random.randint(1, 3),
-                "total_bytes": random.randint(40, 120),   # tiny — just a SYN probe
-                "syn_count": 1,
-            })
+# ---- Mini-batching via NeighborLoader instead of full-graph training ----
+train_loader = NeighborLoader(
+    data,
+    num_neighbors=[10, 10],   # sample up to 10 neighbors at each of 2 hops
+    batch_size=64,
+    input_nodes=train_mask,
+    shuffle=True,
+)
 
-    labels = {}
-    for ip in normal_ips + target_ips:
-        labels[ip] = 0  # normal
-    for ip in scanner_ips:
-        labels[ip] = 1  # anomalous (scanner)
+model = FlowGraphSAGE(in_channels=data.x.shape[1])
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
 
-    return flows, labels
+best_val_loss = float("inf")
+patience = 5          # NEW: early stopping patience
+patience_counter = 0
+max_epochs = 100
 
-def main():
-    flows, labels = generate_synthetic_flow_graph()
-    G = nx.DiGraph()
-    from app.ml.graph_builder import build_ip_graph
-    G = build_ip_graph(flows)
-    data ,node_list =graph_to_pyg_data(G)
-    #map string labels dict to a tensor alignes with node_list order
-    y = torch.tensor([labels.get(ip, 0) for ip in node_list],dtype=torch.long)
-    model=FlowGraphSAGE(in_channels=data.x.shape[1],hidden_channels=32,out_channels=2)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
+for epoch in range(max_epochs):
     model.train()
-
-    for epoch in range(1,101):
+    total_loss = 0
+    for batch in train_loader:
         optimizer.zero_grad()
-        out = model(data.x, data.edge_index)
-        loss = F.cross_entropy(out, y)
+        out = model(batch.x, batch.edge_index)
+        # weight= applies class_weights so minority attack nodes matter more,
+        # and majority benign nodes don't dominate the gradient -> fewer FPs.
+        loss = F.cross_entropy(out[:batch.batch_size], batch.y[:batch.batch_size], weight=class_weights)
         loss.backward()
         optimizer.step()
-        if epoch % 20 == 0:
-            pred = out.argmax(dim=1)
-            acc = (pred == y).float().mean().item()
-            print(f'Epoch {epoch:03d}, Loss: {loss.item():.4f}, Train Accuracy: {acc:.4f}')
+        total_loss += loss.item()
 
-    torch.save(model.state_dict(), "app/models/gnn_graphsage.pt")
-    torch.save({"in_channels": data.x.shape[1]}, "app/models/gnn_meta.pt")
-    print("GNN model saved -> ../app/models/gnn_graphsage.pt")
+    # ---- Validation pass (full graph, no grad) for early stopping ----
+    model.eval()
+    with torch.no_grad():
+        val_out = model(data.x, data.edge_index)
+        val_loss = F.cross_entropy(val_out[val_mask], data.y[val_mask], weight=class_weights).item()
 
-if __name__ == "__main__":
-    main()
+    print(f"Epoch {epoch:03d} | train_loss={total_loss:.4f} | val_loss={val_loss:.4f}")
+
+    if val_loss < best_val_loss:
+        best_val_loss = val_loss
+        patience_counter = 0
+        torch.save(model.state_dict(), "../app/models/gnn_graphsage.pt")  # save best checkpoint
+        print("  -> new best model saved")
+    else:
+        patience_counter += 1
+        if patience_counter >= patience:
+            print(f"Early stopping at epoch {epoch} (no val improvement for {patience} epochs)")
+            break
+
+print("Training complete. Best val_loss:", best_val_loss)

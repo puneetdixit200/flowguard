@@ -1,0 +1,90 @@
+===== THRESHOLDS SELECTED USING THURSDAY VALIDATION DATA =====
+
+===== BALANCED — VALIDATION =====
+Threshold:         0.023500
+Accuracy:          0.8413
+Balanced accuracy: 0.8413
+Precision:         0.7782
+Recall:            0.9545
+F1:                0.8574
+ROC-AUC:           0.7472
+Confusion matrix:
+[[1456 544]
+ [91 1909]]
+
+===== HIGH_RECALL — VALIDATION =====
+Threshold:         0.008500
+Accuracy:          0.7765
+Balanced accuracy: 0.7765
+Precision:         0.6932
+Recall:            0.9920
+F1:                0.8161
+ROC-AUC:           0.7472
+Confusion matrix:
+[[1122 878]
+ [16 1984]]
+
+===== HIGH_PRECISION — VALIDATION =====
+Threshold:         0.023500
+Accuracy:          0.8413
+Balanced accuracy: 0.8413
+Precision:         0.7782
+Recall:            0.9545
+F1:                0.8574
+ROC-AUC:           0.7472
+Confusion matrix:
+[[1456 544]
+ [91 1909]]
+
+
+===== UNTOUCHED FRIDAY TEST RESULTS =====
+
+===== BALANCED — REAL TEST =====
+Threshold:         0.023500
+Accuracy:          0.8609
+Balanced accuracy: 0.8609
+Precision:         0.7871
+Recall:            0.9894
+F1:                0.8767
+ROC-AUC:           0.9036
+Confusion matrix:
+[[3662 1338]
+ [53 4947]]
+
+===== HIGH_RECALL — REAL TEST =====
+Threshold:         0.008500
+Accuracy:          0.7808
+Balanced accuracy: 0.7808
+Precision:         0.6975
+Recall:            0.9918
+F1:                0.8190
+ROC-AUC:           0.9036
+Confusion matrix:
+[[2849 2151]
+ [41 4959]]
+
+===== HIGH_PRECISION — REAL TEST =====
+Threshold:         0.023500
+Accuracy:          0.8609
+Balanced accuracy: 0.8609
+Precision:         0.7871
+Recall:            0.9894
+F1:                0.8767
+ROC-AUC:           0.9036
+Confusion matrix:
+[[3662 1338]
+ [53 4947]]
+
+
+===== FIXED-THRESHOLD COMPARISON ON VALIDATION =====
+threshold | accuracy | precision | recall | F1 | alerts
+ 0.023552 | 0.8417 | 0.7789 | 0.9545 | 0.8578 | 2451/4000
+ 0.050000 | 0.4572 | 0.3503 | 0.1000 | 0.1556 | 571/4000
+ 0.100000 | 0.4660 | 0.3629 | 0.0900 | 0.1442 | 496/4000
+ 0.200000 | 0.4708 | 0.3691 | 0.0825 | 0.1349 | 447/4000
+ 0.300000 | 0.5008 | 0.5090 | 0.0425 | 0.0784 | 167/4000
+ 0.400000 | 0.4915 | 0.2571 | 0.0090 | 0.0174 | 70/4000
+ 0.500000 | 0.4915 | 0.1600 | 0.0040 | 0.0078 | 50/4000
+ 0.600000 | 0.4910 | 0.0500 | 0.0010 | 0.0020 | 40/4000
+
+Saved operational thresholds: /home/pd/Downloads/flowguard/ml-service/app/models/real_only/rf_operational_thresholds.json

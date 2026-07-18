@@ -1,0 +1,57 @@
+
+===== BUILDING TRAIN SPLIT =====
+Reading: Monday-WorkingHours.pcap_ISCX.csv
+Reading: Tuesday-WorkingHours.pcap_ISCX.csv
+Reading: Wednesday-workingHours.pcap_ISCX.csv
+Rows selected: 20,000
+Binary labels:
+Label
+0    10000
+1    10000
+Attack types:
+attack_type
+DoS Hulk            8692
+DoS GoldenEye        366
+FTP-Patator          299
+SSH-Patator          222
+DoS Slowhttptest     220
+DoS slowloris        200
+Heartbleed             1
+Saved: /home/pd/Downloads/flowguard/ml-service/data/real_only/train_real.csv
+
+===== BUILDING VALIDATION SPLIT =====
+Reading: Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv
+Reading: Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv
+Rows selected: 4,000
+Binary labels:
+Label
+0    2000
+1    2000
+Attack types:
+attack_type
+Web Attack � Brute Force      1367
+Web Attack � XSS               585
+Infiltration                    30
+Web Attack � Sql Injection      18
+Saved: /home/pd/Downloads/flowguard/ml-service/data/real_only/validation_real.csv
+
+===== BUILDING TEST SPLIT =====
+Reading: Friday-WorkingHours-Morning.pcap_ISCX.csv
+Reading: Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv
+Reading: Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv
+Rows selected: 10,000
+Binary labels:
+Label
+0    5000
+1    5000
+Attack types:
+attack_type
+PortScan    2804
+DDoS        2152
+Bot           44
+Saved: /home/pd/Downloads/flowguard/ml-service/data/real_only/test_real.csv
+
+===== REAL-ONLY DATASET PREPARATION COMPLETE =====
+Training rows:   20,000
+Validation rows: 4,000
+Testing rows:    10,000

@@ -1,0 +1,10 @@
+===== GRAPHSAGE SYNTHETIC EVALUATION =====
+Graphs evaluated: 20
+Nodes evaluated:  4199
+Accuracy:          0.9826
+Precision:         1.0000
+Recall:            0.6350
+F1:                0.7768
+Confusion matrix:
+[[3999    0]
+ [  73  127]]

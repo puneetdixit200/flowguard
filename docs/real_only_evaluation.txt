@@ -1,0 +1,104 @@
+===== REAL-ONLY DATASET =====
+Training rows:   20,000
+Validation rows: 4,000
+Testing rows:    10,000
+
+
+Training Isolation Forest on real benign flows...
+Validation threshold: 0.329398
+
+===== ISOLATION FOREST — REAL TEST =====
+Accuracy:          0.6251
+Balanced accuracy: 0.6251
+Precision:         0.5721
+Recall:            0.9926
+F1:                0.7259
+ROC-AUC:           0.6558
+Confusion matrix:
+[[1288 3712]
+ [  37 4963]]
+
+Training Random Forest on real labelled flows...
+Validation threshold: 0.023552
+
+===== RANDOM FOREST — REAL TEST =====
+Accuracy:          0.8609
+Balanced accuracy: 0.8609
+Precision:         0.7871
+Recall:            0.9894
+F1:                0.8767
+ROC-AUC:           0.9036
+Confusion matrix:
+[[3662 1338]
+ [  53 4947]]
+
+Training Autoencoder on: cpu
+Autoencoder epoch 01/40: loss=0.991777
+Autoencoder epoch 10/40: loss=0.065146
+Autoencoder epoch 20/40: loss=0.014158
+Autoencoder epoch 30/40: loss=0.011380
+Autoencoder epoch 40/40: loss=0.010787
+Validation threshold: 0.000875
+
+===== AUTOENCODER — REAL TEST =====
+Accuracy:          0.7586
+Balanced accuracy: 0.7586
+Precision:         0.7311
+Recall:            0.8180
+F1:                0.7721
+ROC-AUC:           0.7765
+Confusion matrix:
+[[3496 1504]
+ [ 910 4090]]
+
+Building real flow-similarity graphs...
+Training graph: 20,000 nodes, 320,000 directed edges
+Validation graph: 4,000 nodes, 64,000 directed edges
+Test graph: 10,000 nodes, 160,000 directed edges
+
+Training GraphSAGE on: cpu
+GraphSAGE epoch 01/80: loss=0.717868, validation_f1=0.6695
+GraphSAGE epoch 10/80: loss=0.476546, validation_f1=0.0026
+Early stopping at epoch 17
+Validation threshold: 0.511871
+
+===== GRAPHSAGE — REAL TEST =====
+Accuracy:          0.5539
+Balanced accuracy: 0.5539
+Precision:         0.5285
+Recall:            0.9988
+F1:                0.6913
+ROC-AUC:           0.7303
+Confusion matrix:
+[[ 545 4455]
+ [   6 4994]]
+
+Validation ensemble 1-of-4: F1=0.6667, balanced_accuracy=0.5000
+
+Validation ensemble 2-of-4: F1=0.7235, balanced_accuracy=0.6182
+
+Validation ensemble 3-of-4: F1=0.8134, balanced_accuracy=0.7742
+
+Validation ensemble 4-of-4: F1=0.8553, balanced_accuracy=0.8553
+
+Selected ensemble rule using validation data: 4-of-4 models
+
+===== FOUR-MODEL ENSEMBLE — REAL TEST =====
+Accuracy:          0.8471
+Balanced accuracy: 0.8471
+Precision:         0.8696
+Recall:            0.8166
+F1:                0.8423
+ROC-AUC:           0.9015
+Confusion matrix:
+[[4388  612]
+ [ 917 4083]]
+
+Recall by real Friday attack family:
+  Bot                  0.0227 (44 flows)
+  DDoS                 0.8499 (2,152 flows)
+  PortScan             0.8035 (2,804 flows)
+
+===== REAL-ONLY EVALUATION COMPLETE =====
+Models saved to: /home/pd/Downloads/flowguard/ml-service/app/models/real_only
+Metrics saved to: /home/pd/Downloads/flowguard/docs/real_only_metrics.json

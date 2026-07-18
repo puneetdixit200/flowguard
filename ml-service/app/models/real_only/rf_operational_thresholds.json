@@ -1,0 +1,103 @@
+{
+  "selection_dataset": "Thursday CICIDS2017 validation split",
+  "reporting_dataset": "Friday CICIDS2017 untouched test split",
+  "thresholds": {
+    "balanced": 0.0235,
+    "high_recall": 0.0085,
+    "high_precision": 0.0235
+  },
+  "validation_metrics": {
+    "balanced": {
+      "threshold": 0.0235,
+      "accuracy": 0.84125,
+      "balanced_accuracy": 0.84125,
+      "precision": 0.7782307378719935,
+      "recall": 0.9545,
+      "f1": 0.8573995059510442,
+      "roc_auc": 0.7472216250000001,
+      "true_negatives": 1456,
+      "false_positives": 544,
+      "false_negatives": 91,
+      "true_positives": 1909,
+      "alert_count": 2453,
+      "total_rows": 4000
+    },
+    "high_recall": {
+      "threshold": 0.0085,
+      "accuracy": 0.7765,
+      "balanced_accuracy": 0.7765,
+      "precision": 0.6932215234102026,
+      "recall": 0.992,
+      "f1": 0.816125051419169,
+      "roc_auc": 0.7472216250000001,
+      "true_negatives": 1122,
+      "false_positives": 878,
+      "false_negatives": 16,
+      "true_positives": 1984,
+      "alert_count": 2862,
+      "total_rows": 4000
+    },
+    "high_precision": {
+      "threshold": 0.0235,
+      "accuracy": 0.84125,
+      "balanced_accuracy": 0.84125,
+      "precision": 0.7782307378719935,
+      "recall": 0.9545,
+      "f1": 0.8573995059510442,
+      "roc_auc": 0.7472216250000001,
+      "true_negatives": 1456,
+      "false_positives": 544,
+      "false_negatives": 91,
+      "true_positives": 1909,
+      "alert_count": 2453,
+      "total_rows": 4000
+    }
+  },
+  "test_metrics": {
+    "balanced": {
+      "threshold": 0.0235,
+      "accuracy": 0.8609,
+      "balanced_accuracy": 0.8609,
+      "precision": 0.7871121718377089,
+      "recall": 0.9894,
+      "f1": 0.8767390341160833,
+      "roc_auc": 0.9036483399999999,
+      "true_negatives": 3662,
+      "false_positives": 1338,
+      "false_negatives": 53,
+      "true_positives": 4947,
+      "alert_count": 6285,
+      "total_rows": 10000
+    },
+    "high_recall": {
+      "threshold": 0.0085,
+      "accuracy": 0.7808,
+      "balanced_accuracy": 0.7807999999999999,
+      "precision": 0.6974683544303798,
+      "recall": 0.9918,
+      "f1": 0.8189925681255161,
+      "roc_auc": 0.9036483399999999,
+      "true_negatives": 2849,
+      "false_positives": 2151,
+      "false_negatives": 41,
+      "true_positives": 4959,
+      "alert_count": 7110,
+      "total_rows": 10000
+    },
+    "high_precision": {
+      "threshold": 0.0235,
+      "accuracy": 0.8609,
+      "balanced_accuracy": 0.8609,
+      "precision": 0.7871121718377089,
+      "recall": 0.9894,
+      "f1": 0.8767390341160833,
+      "roc_auc": 0.9036483399999999,
+      "true_negatives": 3662,
+      "false_positives": 1338,
+      "false_negatives": 53,
+      "true_positives": 4947,
+      "alert_count": 6285,
+      "total_rows": 10000
+    }
+  }
+}
