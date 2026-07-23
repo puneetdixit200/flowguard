@@ -9,6 +9,26 @@ Useful revision order:
 3. Capture Threading: producer queue consumer flow in `capture-cpp`.
 4. Data And Models: training artifacts, runtime flow files, persistence, and shadow model path.
 
+## Rendered diagrams
+
+Each PNG embeds its Draw.io XML and remains editable.
+
+### Runtime Architecture
+
+![Runtime Architecture](runtime-architecture.drawio.png)
+
+### Packet To Alert Flow
+
+![Packet To Alert Flow](packet-to-alert-flow.drawio.png)
+
+### Capture Threading
+
+![Capture Threading](capture-threading.drawio.png)
+
+### Data And Models
+
+![Data And Models](data-and-models.drawio.png)
+
 Skipped diagrams:
 
 - Full file tree: already covered in `docs/app-tree.md`.
