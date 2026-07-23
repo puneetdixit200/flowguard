@@ -104,13 +104,13 @@
           <mxGeometry x="120" y="250" width="200" height="70" as="geometry" />
         </mxCell>
         <mxCell id="12" value="9b. Create alert&#xa;severity + explanation + threat intel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="120" y="430" width="220" height="80" as="geometry" />
+          <mxGeometry x="315" y="450" width="220" height="80" as="geometry" />
         </mxCell>
         <mxCell id="13" value="10. Store + notify&#xa;Postgres Alert, Redis publish/cache" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="430" y="450" width="250" height="70" as="geometry" />
+          <mxGeometry x="600" y="455" width="250" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="14" value="11. Dashboard reads&#xa;/alerts, /metrics/model, /health" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="770" y="450" width="240" height="70" as="geometry" />
+        <mxCell id="14" value="11. Dashboard consumes&#xa;health + flow status; intended live alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="930" y="455" width="270" height="70" as="geometry" />
         </mxCell>
         <mxCell id="15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="2" target="3"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="3" target="4"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -120,8 +120,8 @@
         <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="7" target="8"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="8" target="9"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="9" target="10"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="23" value="no or persist=false" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" parent="1" source="10" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="24" value="yes and persist=true" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="10" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="23" value="no / persist=false" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" parent="1" source="10" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="24" value="yes + persist=true" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="10" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="12" target="13"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="13" target="14"><mxGeometry relative="1" as="geometry" /></mxCell>
       </root>
@@ -147,7 +147,7 @@
         <mxCell id="6" value="queue.push(PacketInfo)&#xa;blocks when full" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="2">
           <mxGeometry x="80" y="300" width="200" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="7" value="capture_done = true&#xa;producer joins" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="2">
+        <mxCell id="7" value="producer.join() completes&#xa;main calls queue.shutdown()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="2">
           <mxGeometry x="80" y="420" width="200" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8" value="BlockingQueue&lt;PacketInfo&gt;&#xa;capacity 1000&#xa;mutex + condition variables" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
@@ -172,61 +172,315 @@
         <mxCell id="17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="3" source="9" target="10"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="18" value="after queue.shutdown()" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="3" source="10" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="19" value="emit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="11" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="20" value="shutdown signal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" edge="1" parent="1" source="7" target="8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="20" value="shutdown" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0.2;entryY=1;" edge="1" parent="1" source="7" target="8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="530" />
+              <mxPoint x="470" y="400" />
+              <mxPoint x="580" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="4 Data And Models">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+  <diagram name="4 ML Training And Inference">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="2" value="Offline Training Inputs&#xa;CICIDS CSVs + sample/real PCAP-derived flows" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
-          <mxGeometry x="90" y="110" width="260" height="100" as="geometry" />
+        <mxCell id="2" value="Offline Training" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1520" height="310" as="geometry" />
         </mxCell>
-        <mxCell id="3" value="training/*.py&#xa;prepare, train, evaluate, tune thresholds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="450" y="110" width="260" height="100" as="geometry" />
+        <mxCell id="3" value="Training Inputs&#xa;CICIDS CSVs + real PCAP-derived flows" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="2">
+          <mxGeometry x="40" y="100" width="250" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="4" value="Legacy Model Artifacts&#xa;scaler, isolation_forest, random_forest, autoencoder, gnn" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="830" y="80" width="290" height="110" as="geometry" />
+        <mxCell id="4" value="training/*.py&#xa;prepare, train, evaluate, tune thresholds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="2">
+          <mxGeometry x="360" y="100" width="260" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="5" value="Real-only RF Artifacts&#xa;supervised_scaler, random_forest, thresholds" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="830" y="230" width="290" height="100" as="geometry" />
+        <mxCell id="5" value="Legacy Artifacts&#xa;scaler, IF, RF, AE, GNN" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="2">
+          <mxGeometry x="730" y="60" width="280" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="6" value="FastAPI startup&#xa;load predictors once" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="160" width="220" height="80" as="geometry" />
+        <mxCell id="6" value="Real-only RF Artifacts&#xa;supervised scaler, RF, thresholds" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="2">
+          <mxGeometry x="730" y="190" width="280" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="7" value="Runtime Flow File&#xa;data/flows_output.jsonl" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="90" y="470" width="230" height="90" as="geometry" />
+        <mxCell id="7" value="FastAPI Startup&#xa;loads both predictors once" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="2">
+          <mxGeometry x="1170" y="120" width="260" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="8" value="/analyze&#xa;legacy ensemble path&#xa;optionally persist alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="450" y="410" width="250" height="90" as="geometry" />
+        <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="2" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9" value="/real-model/analyze&#xa;real-only RF shadow path&#xa;never persists" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="450" y="550" width="250" height="90" as="geometry" />
+        <mxCell id="9" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" parent="2" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="10" value="PostgreSQL&#xa;Alert + ThreatIntelEntry" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="850" y="430" width="220" height="90" as="geometry" />
+        <mxCell id="10" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.7;entryX=0;entryY=0.5;" edge="1" parent="2" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="11" value="Redis&#xa;alert channel + count cache" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="850" y="570" width="220" height="90" as="geometry" />
+        <mxCell id="11" value="load" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="2" source="5" target="7">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="12" value="Dashboard&#xa;/alerts and health/metrics views" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="500" width="220" height="90" as="geometry" />
+        <mxCell id="12" value="load" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.7;" edge="1" parent="2" source="6" target="7">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="2" target="3"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="14" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="1" source="3" target="4"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="15" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.65;entryX=0;entryY=0.5;" edge="1" parent="1" source="3" target="5"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="16" value="load" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="4" target="6"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="17" value="load" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.7;" edge="1" parent="1" source="5" target="6"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="18" value="read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="1" source="7" target="8"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="19" value="read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.65;entryX=0;entryY=0.5;" edge="1" parent="1" source="7" target="9"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="20" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="8" target="4"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="21" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="9" target="5"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="22" value="alerts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.45;entryX=0;entryY=0.5;" edge="1" parent="1" source="8" target="10"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="23" value="publish/cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="8" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="24" value="API reads" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.4;" edge="1" parent="1" source="10" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="25" value="live updates / counts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.7;" edge="1" parent="1" source="11" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="13" value="Runtime Inference" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="390" width="1520" height="540" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Runtime Flow File&#xa;data/flows_output.jsonl" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="13">
+          <mxGeometry x="40" y="190" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="POST /analyze&#xa;normalize legacy feature order" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="13">
+          <mxGeometry x="350" y="80" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="Legacy Ensemble&#xa;IF + RF + AE + optional GNN&#xa;alert when at least 2 of 4 vote" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="13">
+          <mxGeometry x="700" y="70" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="Optional persist=true&#xa;PostgreSQL alert + Redis publish/cache" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="13">
+          <mxGeometry x="1120" y="70" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="POST /real-model/analyze&#xa;derive rates and ratios" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="13">
+          <mxGeometry x="350" y="250" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="Real-only Random Forest&#xa;operational threshold mode" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="13">
+          <mxGeometry x="700" y="250" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="Shadow Results&#xa;predictions only, never persisted" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="13">
+          <mxGeometry x="1120" y="250" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="POST /analyze/compare&#xa;invokes both predictors, reports agreement&#xa;never persists" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="13">
+          <mxGeometry x="1120" y="400" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="Current blocker&#xa;/analyze calls detector.score and expects is_anomaly/severity/details, but Ensemble exposes score_flow and returns alert/votes." style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="13">
+          <mxGeometry x="350" y="390" width="340" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="13" source="14" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.65;entryX=0;entryY=0.5;" edge="1" parent="13" source="14" target="18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="contract mismatch" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="13" source="15" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="anomaly + persist" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="13" source="16" target="17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="13" source="18" target="19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="return" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="13" source="19" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="5 System Overview">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="FlowGuard System Overview" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="700" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Network Traffic&#xa;PCAP files today&#xa;live/eBPF path experimental" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="170" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Training Data&#xa;CICIDS CSVs + captured flows" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="80" y="560" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="FlowGuard&#xa;Capture packets, aggregate flows, score anomalies, persist and publish alerts" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#1061B0;strokeColor=#0D5091;fontColor=#ffffff;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="570" y="270" width="400" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Offline ML Training&#xa;produces versioned model artifacts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="570" y="580" width="400" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Browser Dashboard&#xa;health status, analysis command, live alert feed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="170" width="300" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Security Analyst / Developer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="40" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="PostgreSQL&#xa;alerts, flows, threat intelligence" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="390" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Redis&#xa;alert channel + recent alert count" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="590" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="packets / PCAP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="train / evaluate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="model artifacts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="6" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="REST + alert updates" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.3;" edge="1" parent="1" source="7" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="8" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="persist / query" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.45;entryX=0;entryY=0.5;" edge="1" parent="1" source="5" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="publish / cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="5" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="6 Cpp Capture Components">
+    <mxGraphModel dx="1800" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="capture-cpp Component And Data Flow" style="text;html=1;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1720" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="PCAP File" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="30" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="libpcap&#xa;pcap_next_ex" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="220" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="PacketParser&#xa;Ethernet + IPv4 + TCP/UDP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="410" y="180" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="PacketInfo&#xa;parsed packet DTO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="610" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="BlockingQueue&#xa;capacity 1000" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="800" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="FlowAggregator&#xa;map&lt;FlowKey, FlowStats&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="990" y="180" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="FeatureEmitter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="JsonSerializer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1390" y="180" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="flows_output.jsonl" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1580" y="180" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="Unsupported / truncated packet&#xa;std::nullopt, ignored" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="410" y="420" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="FlowKey&#xa;5-tuple identity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="900" y="420" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="FlowStats&#xa;counts, flags, duration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="420" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="At shutdown only&#xa;aggregator.flushAllAsJson()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="420" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="3" target="4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="4" target="5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="5" target="6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="6" target="7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="7" target="8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="8" target="9"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="9" target="10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="10" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="24" value="nullopt" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="5" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="25" value="key" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="8" target="13"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="26" value="update" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="8" target="14"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="27" value="triggers output" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="15" target="9"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="7 API And Dashboard Wiring">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Dashboard" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="420" height="850" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="FastAPI Surface" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="60" width="600" height="850" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Backend Dependencies" style="swimlane;startSize=34;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="60" width="600" height="850" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Run Analysis button&#xa;api.runAnalysis()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="2"><mxGeometry x="70" y="100" width="280" height="80" as="geometry" /></mxCell>
+        <mxCell id="6" value="StatusStrip&#xa;polls every 5 seconds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="2"><mxGeometry x="70" y="250" width="280" height="80" as="geometry" /></mxCell>
+        <mxCell id="7" value="AlertFeed&#xa;useLiveAlerts WebSocket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="2"><mxGeometry x="70" y="400" width="280" height="80" as="geometry" /></mxCell>
+        <mxCell id="8" value="GnnGraphView&#xa;currently receives empty nodes/edges" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="2"><mxGeometry x="70" y="550" width="280" height="90" as="geometry" /></mxCell>
+        <mxCell id="9" value="POST /analyze&#xa;offset, limit, persist" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="3"><mxGeometry x="70" y="100" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="10" value="GET /health&#xa;GET /flows/recent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="3"><mxGeometry x="70" y="250" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="11" value="WS /stream/alerts&#xa;implemented in api/websocket.py, router not included" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="3"><mxGeometry x="70" y="400" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="12" value="GET /gnn/status + graph endpoint&#xa;expected by UI but absent" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="3"><mxGeometry x="70" y="550" width="460" height="90" as="geometry" /></mxCell>
+        <mxCell id="13" value="Available but unused by current UI&#xa;GET /alerts, /alerts/{id}, /metrics/model&#xa;POST /analyse/real, /real-model/analyze, /analyze/compare" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="3"><mxGeometry x="70" y="690" width="460" height="100" as="geometry" /></mxCell>
+        <mxCell id="14" value="Flow reader + normalizer + Ensemble&#xa;current detector contract mismatch blocks /analyze" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="4"><mxGeometry x="70" y="100" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="15" value="JSONL flow file&#xa;health and recent flow reads" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="4"><mxGeometry x="70" y="250" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="16" value="Redis Pub/Sub&#xa;flowguard:alerts channel" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="4"><mxGeometry x="70" y="400" width="460" height="80" as="geometry" /></mxCell>
+        <mxCell id="17" value="gnn_service.py + graph_builder.py&#xa;implemented but not exposed to dashboard" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="4"><mxGeometry x="70" y="550" width="460" height="90" as="geometry" /></mxCell>
+        <mxCell id="18" value="PostgreSQL + real-only model artifacts&#xa;used by alert and shadow endpoints" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="4"><mxGeometry x="70" y="690" width="460" height="100" as="geometry" /></mxCell>
+        <mxCell id="19" value="POST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="5" target="9"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="20" value="intended call" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="9" target="14"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="21" value="GET" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="6" target="10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="22" value="read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="10" target="15"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="23" value="connection currently fails" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="7" target="11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="24" value="subscribe if mounted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="11" target="16"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="25" value="no endpoint" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="8" target="12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="26" value="not wired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="12" target="17"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="27" value="query / score" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="13" target="18"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="8 Persistence ERD">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Flow" style="swimlane;startSize=40;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="420" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="PK  id: Int&#xa;&#xa;srcIP: String&#xa;dstIP: String&#xa;srcPort: Int&#xa;dstPort: Int&#xa;protocol: String&#xa;&#xa;packetCount: Int&#xa;totalBytes: Int&#xa;durationSeconds: Int&#xa;synCount: Int&#xa;ackCount: Int&#xa;finCount: Int&#xa;rstCount: Int&#xa;&#xa;createdAt: DateTime&#xa;alerts: Alert[]" style="text;html=1;align=left;verticalAlign=top;fontFamily=monospace;fontSize=14;spacingLeft=14;spacingTop=12;" vertex="1" parent="2">
+          <mxGeometry x="10" y="50" width="400" height="530" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Alert" style="swimlane;startSize=40;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="600" y="90" width="480" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="PK  id: Int&#xa;FK? flowId: Int?&#xa;flow: Flow?&#xa;&#xa;srcIP: String&#xa;dstIP: String&#xa;protocol: String&#xa;severity: String&#xa;confidence: String&#xa;votes: Int&#xa;predictedClass: String&#xa;&#xa;isoForestVerdict: String&#xa;rfVerdict: String&#xa;aeReconError: Float&#xa;explanation: String&#xa;threatIntelMatch: Boolean&#xa;threatIntelNote: String?&#xa;createdAt: DateTime" style="text;html=1;align=left;verticalAlign=top;fontFamily=monospace;fontSize=14;spacingLeft=14;spacingTop=12;" vertex="1" parent="4">
+          <mxGeometry x="10" y="50" width="460" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="ThreatIntelEntry" style="swimlane;startSize=40;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="90" width="350" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="PK  id: Int&#xa;UQ  ip: String&#xa;category: String&#xa;source: String&#xa;addedAt: DateTime" style="text;html=1;align=left;verticalAlign=top;fontFamily=monospace;fontSize=14;spacingLeft=14;spacingTop=12;" vertex="1" parent="6">
+          <mxGeometry x="10" y="50" width="330" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Redis (ephemeral)" style="swimlane;startSize=40;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="500" width="350" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="channel  flowguard:alerts&#xa;key      flowguard:alert_count&#xa;&#xa;Not part of Prisma schema" style="text;html=1;align=left;verticalAlign=top;fontFamily=monospace;fontSize=14;spacingLeft=14;spacingTop=12;" vertex="1" parent="8">
+          <mxGeometry x="10" y="50" width="330" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="flowId?" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmandOne;startArrow=ERzeroToMany;labelBackgroundColor=#ffffff;exitX=0;exitY=0.2;entryX=1;entryY=0.2;" edge="1" parent="1" source="4" target="2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="IP lookup (no FK)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=#ffffff;exitX=1;exitY=0.35;entryX=0;entryY=0.6;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Current persistence gap&#xa;create_alert() does not set flowId, so newly created Alert rows are normally not linked to Flow rows." style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#8a1c1c;" vertex="1" parent="1">
+          <mxGeometry x="150" y="800" width="900" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="observed behavior" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;fontColor=#8a1c1c;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.8;entryY=0;" edge="1" parent="1" source="4" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="Schema cardinality: one Flow can have many Alerts; each Alert may reference zero or one Flow." style="text;html=1;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="710" width="520" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="Alert service publishes the alert and increments the cached count." style="text;html=1;align=center;verticalAlign=middle;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="430" width="390" height="50" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

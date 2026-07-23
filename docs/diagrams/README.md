@@ -1,42 +1,53 @@
 # FlowGuard Diagrams
 
-Open `flowguard-study-diagrams.drawio` in draw.io / diagrams.net.
+Open `flowguard-study-diagrams.drawio` in draw.io / diagrams.net. The file
+contains eight editable pages. Each rendered PNG also embeds the Draw.io XML.
 
-Useful revision order:
+Recommended revision order:
 
-1. Runtime Architecture: Docker services and the main handoff points.
-2. Packet To Alert Flow: what happens from PCAP input to alert display.
-3. Capture Threading: producer queue consumer flow in `capture-cpp`.
-4. Data And Models: training artifacts, runtime flow files, persistence, and shadow model path.
+1. System Overview: project purpose, users, inputs, outputs, and dependencies.
+2. Runtime Architecture: Docker services and runtime handoff points.
+3. C++ Capture Components: parser, data types, queue, aggregation, and JSONL output.
+4. Capture Threading: producer, bounded queue, consumer, and shutdown behavior.
+5. Packet To Alert Flow: intended end-to-end processing sequence.
+6. ML Training And Inference: artifacts, legacy ensemble, real-only RF, and comparison mode.
+7. API And Dashboard Wiring: what is connected, available, missing, or not mounted.
+8. Persistence ERD: Prisma entities, Redis data, and application-level relationships.
 
-## Rendered diagrams
+## System Overview
 
-Each PNG embeds its Draw.io XML and remains editable.
+![System Overview](system-overview.drawio.png)
 
-### Runtime Architecture
+## Runtime Architecture
 
 ![Runtime Architecture](runtime-architecture.drawio.png)
 
-### Packet To Alert Flow
+## C++ Capture Components
 
-![Packet To Alert Flow](packet-to-alert-flow.drawio.png)
+![C++ Capture Components](cpp-capture-components.drawio.png)
 
-### Capture Threading
+## Capture Threading
 
 ![Capture Threading](capture-threading.drawio.png)
 
-### Data And Models
+## Packet To Alert Flow
 
-![Data And Models](data-and-models.drawio.png)
+![Packet To Alert Flow](packet-to-alert-flow.drawio.png)
 
-Skipped diagrams:
+## ML Training And Inference
+
+![ML Training And Inference](ml-training-and-inference.drawio.png)
+
+## API And Dashboard Wiring
+
+![API And Dashboard Wiring](api-dashboard-wiring.drawio.png)
+
+## Persistence ERD
+
+![Persistence ERD](persistence-erd.drawio.png)
+
+Not included:
 
 - Full file tree: already covered in `docs/app-tree.md`.
-- Every Python import: too noisy for revision.
-- eBPF internals: currently experimental compared with the main C++ capture path.
-
-Code mismatches worth checking while revising:
-
-- `ml-service/app/main.py` calls `detector.score(...)`, but `ml-service/app/ml/ensemble.py` exposes `score_flow(...)`.
-- The `/metrics/model` text says a 2-of-3 ensemble, while `ensemble.py` currently votes across 4 models.
-- `dashboard/src/api.js` calls `/gnn/status`, but no matching route is visible in `app/main.py`.
+- Every Python/JavaScript import: too noisy for revision.
+- Detailed eBPF internals: experimental and not part of the primary runtime path.
