@@ -9020,6 +9020,14 @@ Open:
 http://127.0.0.1:8080
 - API docs: http://127.0.0.1:8000/docs
 
+## Render Deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/puneetdixit200/flowguard)
+
+This repo includes `render.yaml` for one Docker web service, one Render Postgres database, and one Render Key Value instance. The hosted service serves the dashboard at `/` and the API at the same origin.
+
+Free Render limits apply: the web service can spin down after idle time, Free Postgres expires after 30 days, and Free Key Value does not persist data across restarts.
+
 Notes:
 
 - PostgreSQL and Redis are intentionally not published to host ports in

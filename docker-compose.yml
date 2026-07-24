@@ -20,7 +20,9 @@ services:
       - NET_RAW
 
   ml-service:
-    build: ./ml-service
+    build:
+      context: .
+      dockerfile: ml-service/Dockerfile
     ports:
       - "8000:8000"
     volumes:

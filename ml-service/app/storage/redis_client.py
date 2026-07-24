@@ -11,10 +11,15 @@ import redis
 
 #decode_response is True means we get the plian strings back intread of bytes
 
-redis_client = redis.Redis(
-    host=os.getenv("REDIS_HOST", "localhost"),
-    port=int(os.getenv("REDIS_PORT", "6379")),
-    decode_responses=True,
+redis_url = os.getenv("REDIS_URL")
+redis_client = (
+    redis.Redis.from_url(redis_url, decode_responses=True)
+    if redis_url
+    else redis.Redis(
+        host=os.getenv("REDIS_HOST", "localhost"),
+        port=int(os.getenv("REDIS_PORT", "6379")),
+        decode_responses=True,
+    )
 )
 
 ALERT_CHANNEL ="flowguard:alerts"

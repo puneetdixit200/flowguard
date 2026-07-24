@@ -650,7 +650,11 @@
    runs instantly in any browser — just open index.html or serve it statically.
    ========================================================================= */
 
-            const API = "http://127.0.0.1:8000";
+            const API = ["localhost", "127.0.0.1"].includes(
+                window.location.hostname,
+            )
+                ? "http://127.0.0.1:8000"
+                : "";
 
             // Chart.js instances are created once and updated in place afterward —
             // recreating charts every refresh causes memory leaks and flicker.
@@ -1050,7 +1054,9 @@
                 lucide.createIcons();
 
                 try {
-                    await fetch(`${API}/analyze`, { method: "POST" });
+                    await fetch(`${API}/analyze?limit=50&persist=true`, {
+                        method: "POST",
+                    });
                 } catch (e) {
                     console.error("Analyze failed", e);
                 }

@@ -57,6 +57,7 @@ async def create_alert(flow: dict, result: dict) -> dict:
         "threatIntelMatch": intel_matched,
         "threatIntelNote": intel_note,
     })
+    await prisma.disconnect()
 
     alert_dict={
         "id": alert.id, "src_ip": alert.srcIP, "dst_ip": alert.dstIP,
@@ -73,17 +74,36 @@ async def create_alert(flow: dict, result: dict) -> dict:
 
     return alert_dict
 
+def serialize_alert(alert) -> dict:
+    return {
+        "id": alert.id,
+        "src_ip": alert.srcIP,
+        "dst_ip": alert.dstIP,
+        "protocol": alert.protocol,
+        "severity": alert.severity,
+        "confidence": float(alert.confidence),
+        "votes": alert.votes,
+        "predicted_class": alert.predictedClass,
+        "explanation": alert.explanation,
+        "threat_intel_match": alert.threatIntelMatch,
+        "threat_intel_note": alert.threatIntelNote,
+        "timestamp": alert.createdAt.isoformat(),
+    }
+
 async def get_all_alerts():
     prisma = await get_prisma()
     alerts = await prisma.alert.find_many(order={"createdAt": "desc"}, take=100)
-    return alerts
+    await prisma.disconnect()
+    return [serialize_alert(alert) for alert in alerts]
 
 async def get_alert_by_id(alert_id: str):
     prisma = await get_prisma()
     try:
         alert_pk = int(alert_id)
     except ValueError:
+        await prisma.disconnect()
         return None
 
     alert = await prisma.alert.find_unique(where={"id": alert_pk})
-    return alert
+    await prisma.disconnect()
+    return serialize_alert(alert) if alert else None

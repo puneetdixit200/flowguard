@@ -1,9 +1,13 @@
+from pathlib import Path
+
 from app.ml.ensemble import EnsembleDetector
+from app.api.websocket import router as websocket_router
 from app.services.alert_service import create_alert, get_alert_by_id, get_all_alerts
 from app.services.feature_normalizer import normalize_flow
 from app.services.flow_reader import read_all_flows
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from prepare_cicids_data import FEATURE_COLUMNS  # same order used in training
 
 app = FastAPI(title="FlowGuard API")
@@ -17,6 +21,20 @@ app.add_middleware(
 
 # Load all 3 models ONCE at startup, not per-request — this is a real production pattern.
 detector = EnsembleDetector()
+app.include_router(websocket_router)
+
+DASHBOARD_FILES = (
+    Path(__file__).resolve().parents[2] / "dashboard" / "index.html",
+    Path("/app/dashboard/index.html"),
+)
+
+
+@app.get("/", include_in_schema=False)
+def dashboard():
+    for dashboard_file in DASHBOARD_FILES:
+        if dashboard_file.exists():
+            return FileResponse(dashboard_file)
+    raise HTTPException(status_code=404, detail="Dashboard not packaged")
 
 
 @app.get("/health")
@@ -339,4 +357,3 @@ async def compare_detection_models(
             "These are model comparisons, not verified attack labels."
         ),
     }
-
