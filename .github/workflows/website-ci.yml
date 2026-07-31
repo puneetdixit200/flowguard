@@ -40,3 +40,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Upload static website
+        uses: actions/upload-artifact@v4
+        with:
+          name: flowguard-static-site
+          path: website/out
+          if-no-files-found: error
