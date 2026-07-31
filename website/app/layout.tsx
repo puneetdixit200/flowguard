@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Puneet Dixit" }],
   creator: "Puneet Dixit",
-  metadataBase: new URL("https://flowguard.vercel.app"),
   openGraph: {
     title: "FlowGuard | See threats before they become incidents",
     description:
