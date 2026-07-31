@@ -1,0 +1,46 @@
+/*
+ * The landing page's original content remains in page.tsx while the shared
+ * navigation, impact section, and footer are rendered by the root layout.
+ * `display: contents` lets those sections participate in one flex ordering
+ * context without duplicating the large page component.
+ */
+body {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body > .flowguard-sticky-header {
+  order: -10;
+  flex: 0 0 auto;
+  align-self: stretch;
+}
+
+body > main {
+  display: contents;
+}
+
+body > main > .hero,
+body > main > .stack-strip,
+body > main > .intro,
+body > main > .architecture {
+  order: 0;
+}
+
+body > .impact-section {
+  order: 1;
+}
+
+body > main > .pipeline,
+body > main > .models,
+body > main > .capabilities,
+body > main > .code-section,
+body > main > .cta-section {
+  order: 2;
+}
+
+body > .chrome-footer {
+  order: 3;
+}
