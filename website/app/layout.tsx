@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./impact.css";
+import { ImpactSection, StickyNavigation } from "./site-chrome";
 
 export const metadata: Metadata = {
   title: "FlowGuard | AI-Assisted Network Intrusion Detection",
@@ -50,7 +52,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <StickyNavigation />
+        {children}
+        <ImpactSection />
+      </body>
     </html>
   );
 }
