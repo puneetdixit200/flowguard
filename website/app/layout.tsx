@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./impact.css";
+import "./section-order.css";
 import { ImpactSection, StickyNavigation } from "./site-chrome";
 
 export const metadata: Metadata = {
