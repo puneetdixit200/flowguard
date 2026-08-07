@@ -1,0 +1,49 @@
+name: FlowGuard Website CI
+
+on:
+  push:
+    branches:
+      - main
+      - agent/flowguard-landing-page
+    paths:
+      - "website/**"
+      - ".github/workflows/website-ci.yml"
+  pull_request:
+    paths:
+      - "website/**"
+      - ".github/workflows/website-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload static website
+        uses: actions/upload-artifact@v4
+        with:
+          name: flowguard-static-site
+          path: website/out
+          if-no-files-found: error

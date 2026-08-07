@@ -1,0 +1,404 @@
+/* Branch-only visual theme for the FlowGuard landing page.
+   Structure, content, metrics and component markup intentionally remain unchanged. */
+
+:root {
+  --bg: #0d1117;
+  --bg-deep: #010409;
+  --surface: rgba(22, 27, 34, 0.94);
+  --surface-solid: #161b22;
+  --surface-raised: #1c2128;
+  --line: #21262d;
+  --line-strong: #30363d;
+  --text: #f0f6fc;
+  --muted: #8b949e;
+  --faint: #6e7681;
+  --teal: #58a6ff;
+  --teal-bright: #79c0ff;
+  --teal-dark: #1f6feb;
+  --red: #f85149;
+  --amber: #d29922;
+  --violet: #a371f7;
+  --cyan: #58a6ff;
+  --green: #3fb950;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+body {
+  background: var(--bg);
+}
+
+body::before,
+.ambient,
+.visual-orbit,
+.hero h1 span::after,
+.model-card::after,
+.cta-glow,
+.headline-stat::after,
+.impact-section::before {
+  display: none;
+}
+
+::selection {
+  color: #ffffff;
+  background: #1f6feb;
+}
+
+a:focus-visible {
+  outline-color: #58a6ff;
+}
+
+/* Navigation and brand */
+.flowguard-sticky-header,
+.site-header {
+  border-bottom-color: var(--line-strong);
+  background: rgba(13, 17, 23, 0.96);
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.brand-mark,
+.chrome-brand-mark {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface-solid);
+}
+
+.brand-mark-core,
+.chrome-brand-core {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--teal-bright);
+  box-shadow: none;
+}
+
+.brand-mark-ring,
+.chrome-brand-ring {
+  border-radius: 3px;
+  border-color: #58a6ff;
+  transform: none;
+}
+
+.brand-mark-ring-one,
+.chrome-brand-ring-one {
+  width: 20px;
+  height: 20px;
+}
+
+.brand-mark-ring-two,
+.chrome-brand-ring-two {
+  display: none;
+}
+
+.header-cta,
+.chrome-github {
+  border-color: var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface-solid);
+  box-shadow: none;
+}
+
+.header-cta:hover,
+.chrome-github:hover {
+  border-color: #58a6ff;
+  background: #1c2128;
+  transform: none;
+}
+
+/* Hero */
+.eyebrow {
+  border-color: var(--line-strong);
+  border-radius: 6px;
+  color: var(--teal-bright);
+  background: var(--surface-solid);
+}
+
+.eyebrow > span {
+  border-radius: 2px;
+  background: var(--teal-bright);
+  box-shadow: none;
+}
+
+.hero h1 {
+  font-weight: 650;
+  letter-spacing: -0.052em;
+}
+
+.hero h1 span {
+  color: var(--teal-bright);
+  text-shadow: none;
+}
+
+.hero-lead,
+.intro-copy p,
+.section-heading > p,
+.pipeline-copy > p,
+.code-copy > p,
+.cta-copy > p,
+.impact-heading > p,
+.measured-impact-card p,
+.engineering-impact-copy > p,
+.engineering-impact-list p {
+  color: var(--muted);
+}
+
+.button {
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.button:hover {
+  transform: none;
+}
+
+.button-primary {
+  color: #ffffff;
+  background: #1f6feb;
+  box-shadow: none;
+}
+
+.button-primary:hover {
+  background: #2f81f7;
+  box-shadow: none;
+}
+
+.button-secondary,
+.button-ghost {
+  border-color: var(--line-strong);
+  background: var(--surface-solid);
+}
+
+.button-secondary:hover,
+.button-ghost:hover {
+  border-color: #58a6ff;
+  background: #1c2128;
+}
+
+.button-light {
+  color: #0d1117;
+  background: #f0f6fc;
+}
+
+/* Product preview */
+.dashboard-window {
+  border-color: var(--line-strong);
+  border-radius: 9px;
+  background: #0d1117;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.34);
+  transform: none;
+}
+
+.window-bar {
+  border-bottom-color: var(--line);
+  background: #161b22;
+}
+
+.window-address {
+  border-color: var(--line);
+  color: var(--faint);
+  background: #0d1117;
+}
+
+.live-chip span,
+.preview-status::before,
+.vote-dot.safe {
+  box-shadow: none;
+}
+
+.dashboard-sidebar,
+.preview-stats > div,
+.traffic-panel,
+.model-panel {
+  background: #161b22;
+}
+
+.side-item.active {
+  border-color: #58a6ff;
+  background: rgba(88, 166, 255, 0.14);
+  box-shadow: none;
+}
+
+.preview-status {
+  border-color: rgba(63, 185, 80, 0.32);
+  border-radius: 5px;
+  color: #7ee787;
+  background: rgba(46, 160, 67, 0.08);
+}
+
+#areaGradient stop:first-child {
+  stop-color: #58a6ff;
+}
+
+#areaGradient stop:last-child {
+  stop-color: #58a6ff;
+}
+
+.chart-grid circle,
+.vote-dot.danger,
+.alert-pulse {
+  filter: none;
+  box-shadow: none;
+}
+
+.risk-card,
+.alert-row {
+  border-color: rgba(248, 81, 73, 0.28);
+  background: rgba(248, 81, 73, 0.07);
+}
+
+.floating-card {
+  border-color: var(--line-strong);
+  border-radius: 7px;
+  background: #161b22;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+  backdrop-filter: none;
+}
+
+.floating-card-one,
+.floating-card-two {
+  animation: none;
+}
+
+.floating-icon {
+  border-color: rgba(88, 166, 255, 0.35);
+  border-radius: 5px;
+  color: var(--teal-bright);
+  background: rgba(88, 166, 255, 0.09);
+}
+
+/* Sections and cards */
+.stack-strip,
+.models,
+.impact-section {
+  background: #0d1117;
+}
+
+.architecture-card,
+.capability-card,
+.model-card,
+.headline-stat,
+.measured-impact-card {
+  border-color: var(--line-strong);
+  background: #161b22;
+  box-shadow: none;
+}
+
+.model-card,
+.capability-card {
+  border-radius: 8px;
+}
+
+.headline-stat,
+.measured-impact-card {
+  border-radius: 8px;
+}
+
+.architecture-card:hover,
+.capability-card:hover {
+  background: #1c2128;
+}
+
+.architecture-card::before {
+  background: #58a6ff;
+}
+
+.tag-row span,
+.dataset-note {
+  border-color: var(--line-strong);
+  background: #161b22;
+}
+
+.pipeline-list::before {
+  background: linear-gradient(#58a6ff, rgba(88, 166, 255, 0.08));
+}
+
+.step-index {
+  border-color: var(--line-strong);
+  color: var(--teal-bright);
+  background: #0d1117;
+}
+
+.pipeline-step:hover .step-node,
+.model-status {
+  box-shadow: none;
+}
+
+.models {
+  background: #0b0f14;
+}
+
+.metric-bars i {
+  background: #21262d;
+}
+
+.code-window {
+  border-color: var(--line-strong);
+  border-radius: 8px;
+  background: #0d1117;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+.code-window-bar {
+  color: var(--muted);
+  background: #161b22;
+}
+
+.code-window pre {
+  color: #b1bac4;
+  background: #0d1117;
+}
+
+.cta-section {
+  border-color: var(--line-strong);
+  border-radius: 10px;
+  background: #161b22;
+}
+
+/* Impact / proof section */
+.impact-section {
+  border-top-color: var(--line-strong);
+}
+
+.impact-label,
+.impact-number,
+.headline-stat > span,
+.engineering-impact-copy > a,
+.engineering-impact-list article > span {
+  color: var(--teal-bright);
+}
+
+.engineering-impact-panel {
+  border-color: var(--line-strong);
+  border-radius: 10px;
+  background: #161b22;
+}
+
+.chrome-footer {
+  border-top-color: var(--line-strong);
+  background: #010409;
+}
+
+/* Remove the glossy/generated-product feel while preserving interaction. */
+.header-cta,
+.chrome-github,
+.button,
+.architecture-card,
+.capability-card,
+.engineering-impact-copy > a svg,
+.text-link svg {
+  transition-duration: 120ms;
+}
+
+@media (max-width: 620px) {
+  .dashboard-window {
+    border-radius: 8px;
+  }
+
+  .cta-section {
+    border-radius: 8px;
+  }
+}
